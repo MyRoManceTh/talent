@@ -25,7 +25,7 @@ const LoginPage = () => {
 
     try {
       const user = await login(formData.email, formData.password);
-      toast.success('Login successful!');
+      toast.success('เข้าสู่ระบบสำเร็จ!');
       
       // Redirect based on role
       if (user.role === 'EXPERT') {
@@ -34,7 +34,7 @@ const LoginPage = () => {
         navigate('/seeker/dashboard');
       }
     } catch (error) {
-      toast.error(error.message || 'Login failed. Please check your credentials.');
+      toast.error(error.message || 'เข้าสู่ระบบล้มเหลว กรุณาตรวจสอบอีเมลและรหัสผ่าน');
     } finally {
       setLoading(false);
     }
@@ -45,12 +45,12 @@ const LoginPage = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            เข้าสู่ระบบ
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
+            หรือ{' '}
             <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
-              create a new account
+              สร้างบัญชีใหม่
             </Link>
           </p>
         </div>
@@ -58,7 +58,7 @@ const LoginPage = () => {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email" className="sr-only">
-                Email address
+                อีเมล
               </label>
               <input
                 id="email"
@@ -69,12 +69,12 @@ const LoginPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                placeholder="อีเมล"
               />
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                รหัสผ่าน
               </label>
               <input
                 id="password"
@@ -85,7 +85,7 @@ const LoginPage = () => {
                 value={formData.password}
                 onChange={handleChange}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="รหัสผ่าน"
               />
             </div>
           </div>
@@ -96,7 +96,7 @@ const LoginPage = () => {
               disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-gray-400"
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              {loading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
             </button>
           </div>
         </form>

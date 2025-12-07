@@ -28,12 +28,12 @@ const RegisterPage = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error('รหัสผ่านไม่ตรงกัน');
       return;
     }
 
     if (formData.password.length < 8) {
-      toast.error('Password must be at least 8 characters long');
+      toast.error('รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร');
       return;
     }
 
@@ -42,7 +42,7 @@ const RegisterPage = () => {
     try {
       const { confirmPassword, ...registerData } = formData;
       const user = await register(registerData);
-      toast.success('Registration successful!');
+      toast.success('สร้างบัญชีสำเร็จ!');
       
       // Redirect based on role
       if (user.role === 'EXPERT') {
@@ -51,7 +51,7 @@ const RegisterPage = () => {
         navigate('/seeker/profile');
       }
     } catch (error) {
-      toast.error(error.message || 'Registration failed. Please try again.');
+      toast.error(error.message || 'สร้างบัญชีล้มเหลว กรุณาลองใหม่อีกครั้ง');
     } finally {
       setLoading(false);
     }
@@ -62,12 +62,12 @@ const RegisterPage = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
+            สร้างบัญชี
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Already have an account?{' '}
+            มีบัญชีอยู่แล้ว?{' '}
             <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
-              Sign in
+              เข้าสู่ระบบ
             </Link>
           </p>
         </div>
@@ -76,7 +76,7 @@ const RegisterPage = () => {
             {/* Role Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                I am a...
+                ฉันเป็น...
               </label>
               <div className="flex space-x-4">
                 <label className="flex-1">
@@ -91,8 +91,8 @@ const RegisterPage = () => {
                   <div className={`border-2 rounded-lg p-4 cursor-pointer text-center ${
                     formData.role === 'EXPERT' ? 'border-primary-600 bg-primary-50' : 'border-gray-300'
                   }`}>
-                    <p className="font-semibold">Expert</p>
-                    <p className="text-xs text-gray-600">Share knowledge</p>
+                    <p className="font-semibold">ผู้เชี่ยวชาญ</p>
+                    <p className="text-xs text-gray-600">แบ่งปันความรู้</p>
                   </div>
                 </label>
                 <label className="flex-1">
@@ -107,8 +107,8 @@ const RegisterPage = () => {
                   <div className={`border-2 rounded-lg p-4 cursor-pointer text-center ${
                     formData.role === 'SEEKER' ? 'border-primary-600 bg-primary-50' : 'border-gray-300'
                   }`}>
-                    <p className="font-semibold">Seeker</p>
-                    <p className="text-xs text-gray-600">Find experts</p>
+                    <p className="font-semibold">ผู้ขอคำปรึกษา</p>
+                    <p className="text-xs text-gray-600">ค้นหาผู้เชี่ยวชาญ</p>
                   </div>
                 </label>
               </div>
@@ -118,7 +118,7 @@ const RegisterPage = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  First Name
+                  ชื่อ
                 </label>
                 <input
                   id="firstName"
@@ -132,7 +132,7 @@ const RegisterPage = () => {
               </div>
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Last Name
+                  นามสกุล
                 </label>
                 <input
                   id="lastName"
@@ -149,7 +149,7 @@ const RegisterPage = () => {
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+                อีเมล
               </label>
               <input
                 id="email"
@@ -166,7 +166,7 @@ const RegisterPage = () => {
             {/* Phone */}
             <div>
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                Phone Number (Optional)
+                เบอร์โทรศัพท์ (ไม่บังคับ)
               </label>
               <input
                 id="phoneNumber"
@@ -181,7 +181,7 @@ const RegisterPage = () => {
             {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                รหัสผ่าน
               </label>
               <input
                 id="password"
@@ -193,13 +193,13 @@ const RegisterPage = () => {
                 onChange={handleChange}
                 className="mt-1 input-field"
               />
-              <p className="mt-1 text-xs text-gray-500">Must be at least 8 characters</p>
+              <p className="mt-1 text-xs text-gray-500">ต้องมีอย่างน้อย 8 ตัวอักษร</p>
             </div>
 
             {/* Confirm Password */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Confirm Password
+                ยืนยันรหัสผ่าน
               </label>
               <input
                 id="confirmPassword"
@@ -220,7 +220,7 @@ const RegisterPage = () => {
               disabled={loading}
               className="w-full btn-primary"
             >
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? 'กำลังสร้างบัญชี...' : 'สร้างบัญชี'}
             </button>
           </div>
         </form>
