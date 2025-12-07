@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทดสอบบันทึกโปรไฟล์ Expert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+        .checkbox-group input {
+            width: auto;
+            margin-right: 5px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+        .info {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #f9fafb;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 ทดสอบบันทึกโปรไฟล์ Expert</h1>
+        <p class="subtitle">เครื่องมือทดสอบ API สำหรับ Update Expert Profile</p>
+
+        <div class="info">
+            <strong>📝 คำแนะนำ:</strong> กรอก Token ที่ได้จากการ Login หรือ Register แล้วกดทดสอบ
+        </div>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label>🔑 Authorization Token *</label>
+                <input type="text" id="token" placeholder="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." required>
+                <small style="color: #666;">ได้จาก Login หรือ Register API</small>
+            </div>
+
+            <div class="form-group">
+                <label>📌 Headline (คำอธิบายตัวคุณ) *</label>
+                <input type="text" id="headline" value="Digital Marketing Expert | 10 years experience" required>
+            </div>
+
+            <div class="form-group">
+                <label>📝 Bio (เกี่ยวกับคุณ) *</label>
+                <textarea id="bio" required>ผู้เชี่ยวชาญด้าน Digital Marketing และ Social Media Strategy มีประสบการณ์กว่า 10 ปี</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>🎓 ประสบการณ์ (ปี) *</label>
+                <input type="number" id="yearsOfExperience" value="10" min="0" required>
+                <small style="color: #666;">⚠️ ต้องเป็นตัวเลขจำนวนเต็ม (Integer)</small>
+            </div>
+
+            <div class="form-group">
+                <label>💰 อัตราค่าบริการ (บาท/ชั่วโมง)</label>
+                <input type="number" id="hourlyRate" value="2500" min="0" step="0.01">
+                <small style="color: #666;">⚠️ ต้องเป็นตัวเลข (Decimal)</small>
+            </div>
+
+            <div class="form-group">
+                <label>📊 สถานะ *</label>
+                <select id="availability" required>
+                    <option value="AVAILABLE">พร้อมให้คำปรึกษา</option>
+                    <option value="BUSY">ไม่ว่าง</option>
+                    <option value="NOT_AVAILABLE">ไม่รับงานชั่วคราว</option>
+                </select>
+                <small style="color: #666;">⚠️ ต้องเป็น: AVAILABLE, BUSY, หรือ NOT_AVAILABLE</small>
+            </div>
+
+            <div class="form-group">
+                <label>🌏 รูปแบบการทำงาน</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="ONLINE" checked> อออนไลน์</label>
+                    <label><input type="checkbox" value="ONSITE"> ที่สถานที่จริง</label>
+                    <label><input type="checkbox" value="HYBRID"> ผสม (Hybrid)</label>
+                </div>
+                <small style="color: #666;">⚠️ Array: ["ONLINE", "ONSITE", "HYBRID"]</small>
+            </div>
+
+            <div class="form-group">
+                <label>🔗 LinkedIn URL</label>
+                <input type="url" id="linkedinUrl" placeholder="https://www.linkedin.com/in/yourprofile">
+            </div>
+
+            <div class="form-group">
+                <label>🌍 ประเทศ</label>
+                <input type="text" id="country" value="Thailand">
+            </div>
+
+            <div class="form-group">
+                <label>🏙️ เมือง</label>
+                <input type="text" id="city" value="Bangkok">
+            </div>
+
+            <div class="form-group">
+                <label>⏰ Timezone</label>
+                <input type="text" id="timezone" value="Asia/Bangkok">
+            </div>
+
+            <button type="submit">🚀 ทดสอบบันทึกโปรไฟล์</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'https://5000-itagcibs0p2c8balh71zz-02b9cc79.sandbox.novita.ai/api';
+
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const token = document.getElementById('token').value.trim();
+            const resultDiv = document.getElementById('result');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+
+            // Get preferredMode from checkboxes
+            const preferredMode = Array.from(document.querySelectorAll('.checkbox-group input:checked'))
+                .map(cb => cb.value);
+
+            // Prepare data with proper types
+            const profileData = {
+                headline: document.getElementById('headline').value,
+                bio: document.getElementById('bio').value,
+                linkedinUrl: document.getElementById('linkedinUrl').value || null,
+                yearsOfExperience: parseInt(document.getElementById('yearsOfExperience').value, 10),
+                hourlyRate: document.getElementById('hourlyRate').value ? parseFloat(document.getElementById('hourlyRate').value) : null,
+                availability: document.getElementById('availability').value,
+                country: document.getElementById('country').value || null,
+                city: document.getElementById('city').value || null,
+                timezone: document.getElementById('timezone').value || null,
+                preferredMode: preferredMode,
+                languages: ["th", "en"]
+            };
+
+            // Show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ กำลังทดสอบ...';
+            resultDiv.style.display = 'none';
+
+            try {
+                console.log('📤 Sending data:', profileData);
+
+                const response = await fetch(`${API_URL}/experts/profile`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(profileData)
+                });
+
+                const data = await response.json();
+                console.log('📥 Response:', data);
+
+                // Show result
+                resultDiv.style.display = 'block';
+                if (response.ok && data.success) {
+                    resultDiv.className = 'success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ สำเร็จ!</strong><br>
+                        ${data.message}<br><br>
+                        <strong>ข้อมูลที่บันทึก:</strong>
+                        <pre>${JSON.stringify(data.data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = `
+                        <strong>❌ เกิดข้อผิดพลาด!</strong><br>
+                        ${data.message || 'Unknown error'}<br><br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = `
+                    <strong>❌ Network Error</strong><br>
+                    ${error.message}<br><br>
+                    <small>ตรวจสอบ Console สำหรับรายละเอียดเพิ่มเติม</small>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 ทดสอบบันทึกโปรไฟล์';
+            }
+        });
+    </script>
+</body>
+</html>
