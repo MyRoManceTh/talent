@@ -16,9 +16,13 @@ const ExpertProfile = () => {
     headline: '',
     hourlyRate: '',
     yearsOfExperience: '',
-    availability: 'FULL_TIME',
+    availability: 'AVAILABLE',
     linkedinUrl: '',
-    website: '',
+    country: '',
+    city: '',
+    timezone: '',
+    preferredMode: [],
+    languages: [],
     
     // การศึกษา
     education: [],
@@ -203,18 +207,28 @@ const ExpertProfile = () => {
     setLoading(true);
 
     try {
-      // Prepare data with proper type conversion
+      // Prepare data with proper type conversion and filtering
       const profileData = {
-        ...profile,
+        headline: profile.headline,
+        bio: profile.bio,
+        linkedinUrl: profile.linkedinUrl || null,
         yearsOfExperience: profile.yearsOfExperience ? parseInt(profile.yearsOfExperience, 10) : null,
         hourlyRate: profile.hourlyRate ? parseFloat(profile.hourlyRate) : null,
+        availability: profile.availability,
+        country: profile.country || null,
+        city: profile.city || null,
+        timezone: profile.timezone || null,
+        preferredMode: profile.preferredMode.length > 0 ? profile.preferredMode : [],
+        languages: profile.languages.length > 0 ? profile.languages : [],
       };
 
+      console.log('Sending profile data:', profileData);
       await expertService.updateProfile(profileData);
       toast.success('บันทึกโปรไฟล์สำเร็จ!');
       navigate('/expert/dashboard');
     } catch (error) {
       console.error('Profile save error:', error);
+      console.error('Error response:', error.response?.data);
       toast.error(error.response?.data?.message || error.message || 'เกิดข้อผิดพลาดในการบันทึก');
     } finally {
       setLoading(false);
@@ -343,43 +357,116 @@ const ExpertProfile = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  สถานะการทำงาน
+                  สถานะ
                 </label>
                 <select
                   value={profile.availability}
                   onChange={(e) => handleProfileChange('availability', e.target.value)}
                   className="w-full input-field"
                 >
-                  <option value="FULL_TIME">เต็มเวลา</option>
-                  <option value="PART_TIME">พาร์ทไทม์</option>
-                  <option value="FREELANCE">ฟรีแลนซ์</option>
-                  <option value="CONSULTANT">ที่ปรึกษา</option>
+                  <option value="AVAILABLE">พร้อมให้คำปรึกษา</option>
+                  <option value="BUSY">ไม่ว่าง</option>
+                  <option value="NOT_AVAILABLE">ไม่รับงานชั่วคราว</option>
                 </select>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  รูปแบบการทำงาน
+                </label>
+                <div className="space-y-2">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={profile.preferredMode.includes('ONLINE')}
+                      onChange={(e) => {
+                        const modes = e.target.checked
+                          ? [...profile.preferredMode, 'ONLINE']
+                          : profile.preferredMode.filter(m => m !== 'ONLINE');
+                        handleProfileChange('preferredMode', modes);
+                      }}
+                      className="mr-2"
+                    />
+                    <span className="text-gray-700">ออนไลน์</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={profile.preferredMode.includes('ONSITE')}
+                      onChange={(e) => {
+                        const modes = e.target.checked
+                          ? [...profile.preferredMode, 'ONSITE']
+                          : profile.preferredMode.filter(m => m !== 'ONSITE');
+                        handleProfileChange('preferredMode', modes);
+                      }}
+                      className="mr-2"
+                    />
+                    <span className="text-gray-700">ที่สถานที่จริง</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={profile.preferredMode.includes('HYBRID')}
+                      onChange={(e) => {
+                        const modes = e.target.checked
+                          ? [...profile.preferredMode, 'HYBRID']
+                          : profile.preferredMode.filter(m => m !== 'HYBRID');
+                        handleProfileChange('preferredMode', modes);
+                      }}
+                      className="mr-2"
+                    />
+                    <span className="text-gray-700">ผสม (Hybrid)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  LinkedIn Profile URL
+                </label>
+                <input
+                  type="url"
+                  value={profile.linkedinUrl}
+                  onChange={(e) => handleProfileChange('linkedinUrl', e.target.value)}
+                  placeholder="https://www.linkedin.com/in/yourprofile"
+                  className="w-full input-field"
+                />
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    LinkedIn Profile URL
+                    ประเทศ
                   </label>
                   <input
-                    type="url"
-                    value={profile.linkedinUrl}
-                    onChange={(e) => handleProfileChange('linkedinUrl', e.target.value)}
-                    placeholder="https://www.linkedin.com/in/yourprofile"
+                    type="text"
+                    value={profile.country}
+                    onChange={(e) => handleProfileChange('country', e.target.value)}
+                    placeholder="เช่น: ไทย"
                     className="w-full input-field"
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Website / Portfolio
+                    เมือง
                   </label>
                   <input
-                    type="url"
-                    value={profile.website}
-                    onChange={(e) => handleProfileChange('website', e.target.value)}
-                    placeholder="https://yourwebsite.com"
+                    type="text"
+                    value={profile.city}
+                    onChange={(e) => handleProfileChange('city', e.target.value)}
+                    placeholder="เช่น: กรุงเทพฯ"
+                    className="w-full input-field"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Timezone
+                  </label>
+                  <input
+                    type="text"
+                    value={profile.timezone}
+                    onChange={(e) => handleProfileChange('timezone', e.target.value)}
+                    placeholder="เช่น: Asia/Bangkok"
                     className="w-full input-field"
                   />
                 </div>
