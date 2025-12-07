@@ -1,0 +1,348 @@
+// Prisma Schema for Expert Connect Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Model - Base user for both Experts and Seekers
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String
+  firstName     String
+  lastName      String
+  role          UserRole
+  phoneNumber   String?
+  profileImage  String?
+  isVerified    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  expert        Expert?
+  seeker        Seeker?
+  
+  @@index([email])
+  @@map("users")
+}
+
+enum UserRole {
+  EXPERT
+  SEEKER
+  ADMIN
+}
+
+// Expert Profile
+model Expert {
+  id                String              @id @default(uuid())
+  userId            String              @unique
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Professional Info
+  headline          String?
+  bio               String?
+  linkedinUrl       String?
+  yearsOfExperience Int?
+  hourlyRate        Decimal?            @db.Decimal(10, 2)
+  availability      AvailabilityStatus  @default(AVAILABLE)
+  
+  // Location
+  country           String?
+  city              String?
+  timezone          String?
+  
+  // Preferences
+  preferredMode     WorkMode[]
+  languages         String[]
+  
+  // Relations
+  educations        Education[]
+  workExperiences   WorkExperience[]
+  skills            ExpertSkill[]
+  achievements      Achievement[]
+  industries        ExpertIndustry[]
+  consultations     Consultation[]
+  
+  // Metadata
+  profileCompleteness Int              @default(0)
+  rating            Decimal?           @db.Decimal(3, 2)
+  totalConsultations Int              @default(0)
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([userId])
+  @@map("experts")
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  BUSY
+  NOT_AVAILABLE
+}
+
+enum WorkMode {
+  ONLINE
+  ONSITE
+  HYBRID
+}
+
+// Education History
+model Education {
+  id            String   @id @default(uuid())
+  expertId      String
+  expert        Expert   @relation(fields: [expertId], references: [id], onDelete: Cascade)
+  
+  degree        String
+  fieldOfStudy  String
+  institution   String
+  startYear     Int
+  endYear       Int?
+  description   String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([expertId])
+  @@map("educations")
+}
+
+// Work Experience
+model WorkExperience {
+  id            String   @id @default(uuid())
+  expertId      String
+  expert        Expert   @relation(fields: [expertId], references: [id], onDelete: Cascade)
+  
+  title         String
+  company       String
+  industry      String?
+  location      String?
+  startDate     DateTime
+  endDate       DateTime?
+  isCurrent     Boolean  @default(false)
+  description   String?
+  achievements  String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([expertId])
+  @@map("work_experiences")
+}
+
+// Skills
+model Skill {
+  id            String        @id @default(uuid())
+  name          String        @unique
+  category      SkillCategory
+  
+  expertSkills  ExpertSkill[]
+  
+  createdAt     DateTime      @default(now())
+  
+  @@map("skills")
+}
+
+enum SkillCategory {
+  TECHNICAL
+  SOFT_SKILL
+  DOMAIN_KNOWLEDGE
+  TOOL
+  LANGUAGE
+}
+
+model ExpertSkill {
+  id            String        @id @default(uuid())
+  expertId      String
+  expert        Expert        @relation(fields: [expertId], references: [id], onDelete: Cascade)
+  skillId       String
+  skill         Skill         @relation(fields: [skillId], references: [id])
+  
+  proficiency   ProficiencyLevel
+  yearsOfExp    Int?
+  
+  @@unique([expertId, skillId])
+  @@index([expertId])
+  @@index([skillId])
+  @@map("expert_skills")
+}
+
+enum ProficiencyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+// Industries
+model Industry {
+  id                String           @id @default(uuid())
+  name              String           @unique
+  description       String?
+  
+  expertIndustries  ExpertIndustry[]
+  seekerIndustries  SeekerIndustry[]
+  
+  createdAt         DateTime         @default(now())
+  
+  @@map("industries")
+}
+
+model ExpertIndustry {
+  id            String   @id @default(uuid())
+  expertId      String
+  expert        Expert   @relation(fields: [expertId], references: [id], onDelete: Cascade)
+  industryId    String
+  industry      Industry @relation(fields: [industryId], references: [id])
+  
+  yearsOfExp    Int?
+  
+  @@unique([expertId, industryId])
+  @@index([expertId])
+  @@index([industryId])
+  @@map("expert_industries")
+}
+
+// Achievements/Portfolio
+model Achievement {
+  id            String   @id @default(uuid())
+  expertId      String
+  expert        Expert   @relation(fields: [expertId], references: [id], onDelete: Cascade)
+  
+  title         String
+  description   String
+  date          DateTime?
+  url           String?
+  images        String[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([expertId])
+  @@map("achievements")
+}
+
+// Seeker Profile (Client/Organization)
+model Seeker {
+  id                String             @id @default(uuid())
+  userId            String             @unique
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Organization Info
+  organizationType  OrganizationType
+  organizationName  String
+  organizationSize  String?
+  website           String?
+  description       String?
+  
+  // Contact
+  position          String?
+  department        String?
+  
+  // Relations
+  industries        SeekerIndustry[]
+  consultations     Consultation[]
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([userId])
+  @@map("seekers")
+}
+
+enum OrganizationType {
+  SME
+  LARGE_CORPORATION
+  UNIVERSITY
+  STARTUP
+  NGO
+  GOVERNMENT
+}
+
+model SeekerIndustry {
+  id            String   @id @default(uuid())
+  seekerId      String
+  seeker        Seeker   @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  industryId    String
+  industry      Industry @relation(fields: [industryId], references: [id])
+  
+  @@unique([seekerId, industryId])
+  @@index([seekerId])
+  @@index([industryId])
+  @@map("seeker_industries")
+}
+
+// Consultation Request
+model Consultation {
+  id                String              @id @default(uuid())
+  
+  // Participants
+  seekerId          String
+  seeker            Seeker              @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  expertId          String?
+  expert            Expert?             @relation(fields: [expertId], references: [id], onDelete: SetNull)
+  
+  // Consultation Details
+  title             String
+  problemStatement  String
+  expectations      String?
+  scope             String?
+  budget            Decimal?            @db.Decimal(10, 2)
+  duration          String?
+  preferredMode     WorkMode[]
+  
+  // Matching
+  matchingScore     Decimal?            @db.Decimal(5, 2)
+  aiRationale       String?
+  
+  // Status
+  status            ConsultationStatus  @default(PENDING)
+  
+  // Timeline
+  requestedAt       DateTime            @default(now())
+  respondedAt       DateTime?
+  startDate         DateTime?
+  endDate           DateTime?
+  
+  // Feedback
+  rating            Int?
+  review            String?
+  
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  
+  @@index([seekerId])
+  @@index([expertId])
+  @@index([status])
+  @@map("consultations")
+}
+
+enum ConsultationStatus {
+  PENDING
+  MATCHED
+  SENT_TO_EXPERT
+  ACCEPTED
+  DECLINED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// AI Matching History (for analytics and improvement)
+model MatchingHistory {
+  id                String   @id @default(uuid())
+  consultationId    String
+  expertIds         String[]
+  scores            Json
+  algorithm         String
+  parameters        Json?
+  
+  createdAt         DateTime @default(now())
+  
+  @@index([consultationId])
+  @@map("matching_history")
+}
