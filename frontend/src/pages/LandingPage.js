@@ -43,6 +43,15 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <div className="gradient-bg text-white pt-32 pb-20 relative overflow-hidden">
+        {/* Background Image Overlay */}
+        <div className="absolute inset-0 opacity-10">
+          <img 
+            src="/images/hero-consultation.jpg" 
+            alt="Expert Consultation" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
         {/* Decorative Elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary-400/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-accent-400/20 rounded-full blur-3xl"></div>
@@ -110,6 +119,15 @@ const LandingPage = () => {
       {/* Features Section */}
       <div className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Image for Features */}
+          <div className="mb-16 rounded-3xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
+            <img 
+              src="/images/team-collaboration.jpg" 
+              alt="Team Collaboration" 
+              className="w-full h-96 object-cover"
+            />
+          </div>
+          
           <div className="text-center mb-16">
             <h2 className="section-title">
               วิธีการใช้งาน
@@ -204,9 +222,11 @@ const LandingPage = () => {
                 <div className="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl p-8 shadow-2xl">
                   <div className="bg-white rounded-2xl p-6 mb-4">
                     <div className="flex items-center mb-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center text-white font-bold mr-3">
-                        SK
-                      </div>
+                      <img 
+                        src="/images/expert-male-1.jpg" 
+                        alt="Expert Profile" 
+                        className="w-12 h-12 rounded-xl object-cover mr-3"
+                      />
                       <div>
                         <div className="font-bold text-gray-900">Somchai K.</div>
                         <div className="text-sm text-gray-500">Digital Transformation Expert</div>
@@ -221,9 +241,11 @@ const LandingPage = () => {
                   
                   <div className="bg-white rounded-2xl p-6">
                     <div className="flex items-center mb-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white font-bold mr-3">
-                        NP
-                      </div>
+                      <img 
+                        src="/images/expert-female-1.jpg" 
+                        alt="Expert Profile" 
+                        className="w-12 h-12 rounded-xl object-cover mr-3"
+                      />
                       <div>
                         <div className="font-bold text-gray-900">Nattaya P.</div>
                         <div className="text-sm text-gray-500">Marketing Strategy Consultant</div>
@@ -253,6 +275,15 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <div className="relative">
+                {/* Real AI Matching Image */}
+                <div className="mb-8 rounded-3xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="/images/ai-matching.jpg" 
+                    alt="AI Matching Technology" 
+                    className="w-full h-64 object-cover"
+                  />
+                </div>
+                
                 <div className="bg-gradient-to-br from-accent-100 to-accent-200 rounded-3xl p-8 shadow-2xl">
                   <div className="bg-white rounded-2xl p-6 mb-4">
                     <div className="font-bold text-gray-900 mb-2">🎯 โปรเจกต์ของคุณ</div>
