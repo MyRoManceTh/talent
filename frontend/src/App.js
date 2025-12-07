@@ -11,6 +11,8 @@ import Navbar from './components/layout/Navbar';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ExpertsShowcase from './pages/ExpertsShowcase';
+import ExpertDetailPage from './pages/ExpertDetailPage';
 import ExpertDashboard from './pages/expert/ExpertDashboard';
 import ExpertProfile from './pages/expert/ExpertProfile';
 import ExpertConsultations from './pages/expert/ExpertConsultations';
@@ -31,6 +33,8 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/experts" element={<ExpertsShowcase />} />
+            <Route path="/expert/:id" element={<ExpertDetailPage />} />
 
             {/* Expert Routes */}
             <Route

@@ -25,10 +25,10 @@ const Navbar = () => {
             {!isAuthenticated ? (
               <>
                 <Link to="/login" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">
-                  Login
+                  เข้าสู่ระบบ
                 </Link>
                 <Link to="/register" className="btn-primary">
-                  Sign Up
+                  สมัครสมาชิก
                 </Link>
               </>
             ) : (
@@ -37,26 +37,26 @@ const Navbar = () => {
                   to={user?.role === 'EXPERT' ? '/expert/dashboard' : '/seeker/dashboard'}
                   className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Dashboard
+                  หน้าหลัก
                 </Link>
                 <Link
                   to={user?.role === 'EXPERT' ? '/expert/profile' : '/seeker/profile'}
                   className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Profile
+                  โปรไฟล์
                 </Link>
                 <Link
                   to={user?.role === 'EXPERT' ? '/expert/consultations' : '/seeker/consultations'}
                   className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Consultations
+                  คำขอคำปรึกษา
                 </Link>
                 <div className="flex items-center space-x-3">
                   <span className="text-sm text-gray-700">
                     {user?.firstName} {user?.lastName}
                   </span>
                   <button onClick={handleLogout} className="text-sm text-gray-700 hover:text-primary-600">
-                    Logout
+                    ออกจากระบบ
                   </button>
                 </div>
               </>

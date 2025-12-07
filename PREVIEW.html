@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Connect - Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 60px 40px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            font-size: 32px;
+            color: #1e40af;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background: #f3f4f6;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        .cta {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        .cta h2 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .cta p {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: white;
+            color: #2563eb;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .btn-secondary:hover {
+            background: white;
+            color: #2563eb;
+        }
+        .demo-section {
+            background: #fef3c7;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        .demo-section h3 {
+            color: #92400e;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .demo-code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .preview-note {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2563eb;
+        }
+        .url-box {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 Expert Connect</h1>
+            <p>ระบบจับคู่ผู้เชี่ยวชาญด้วย AI แบบอัจฉริยะ</p>
+        </div>
+
+        <!-- Preview Note -->
+        <div class="content">
+            <div class="preview-note">
+                <h3 style="color: #1e40af; margin-bottom: 10px;">✨ เว็บของคุณพร้อมแล้ว!</h3>
+                <p style="color: #1e3a8a; margin-bottom: 10px;">คุณสามารถเปิดดูเว็บจริงได้ที่ URL นี้:</p>
+                <div class="url-box">
+                    https://3000-itagcibs0p2c8balh71zz-02b9cc79.sandbox.novita.ai
+                </div>
+                <p style="color: #1e3a8a; margin-top: 15px; font-size: 14px;">
+                    💡 คลิกที่ URL ด้านบนเพื่อเปิดเว็บในแท็บใหม่
+                </p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">54</div>
+                    <div class="stat-label">ไฟล์ทั้งหมด</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3,341+</div>
+                    <div class="stat-label">บรรทัดโค้ด</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">API Endpoints</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">หน้าเว็บ</div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="section">
+                <h2>🎯 ฟีเจอร์หลัก</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="icon">🤖</div>
+                        <h3>AI Matching Engine</h3>
+                        <p>ระบบ AI วิเคราะห์และจับคู่ผู้เชี่ยวชาญที่เหมาะสมที่สุด พร้อมอธิบายเหตุผล</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📊</div>
+                        <h3>Multi-Dimensional Scoring</h3>
+                        <p>ให้คะแนนความเหมาะสม 5 มิติ: อุตสาหกรรม ทักษะ ประสบการณ์ งบประมาณ และความพร้อม</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔐</div>
+                        <h3>ปลอดภัยสูง</h3>
+                        <p>JWT Authentication, bcrypt encryption, Role-based access, PDPA compliant</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">👨‍💼</div>
+                        <h3>Expert Profile</h3>
+                        <p>โปรไฟล์ครบถ้วน: การศึกษา ประสบการณ์ ทักษะ ผลงาน และอื่นๆ</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🏢</div>
+                        <h3>Organization Dashboard</h3>
+                        <p>จัดการคำขอคำปรึกษา ดูผู้เชี่ยวชาญที่แนะนำ และติดตามสถานะ</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📱</div>
+                        <h3>Responsive Design</h3>
+                        <p>ใช้งานได้ลื่นไหลบนทุกอุปกรณ์ ทั้ง Desktop, Tablet และ Mobile</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo Section -->
+            <div class="demo-section">
+                <h3>🎨 ตัวอย่างหน้าเว็บที่มี:</h3>
+                <ul style="color: #92400e; line-height: 2;">
+                    <li><strong>🏠 Landing Page</strong> - หน้าแรกพร้อมแนะนำระบบ</li>
+                    <li><strong>🔐 Login Page</strong> - หน้า Login สวยงาม</li>
+                    <li><strong>📝 Register Page</strong> - สมัครสมาชิก (เลือกเป็น Expert หรือ Seeker)</li>
+                    <li><strong>📊 Expert Dashboard</strong> - Dashboard สำหรับผู้เชี่ยวชาญ</li>
+                    <li><strong>👤 Expert Profile</strong> - จัดการโปรไฟล์</li>
+                    <li><strong>📋 Expert Consultations</strong> - ดูคำขอคำปรึกษา</li>
+                    <li><strong>📊 Seeker Dashboard</strong> - Dashboard สำหรับองค์กร</li>
+                    <li><strong>🏢 Seeker Profile</strong> - โปรไฟล์องค์กร</li>
+                    <li><strong>➕ Create Consultation</strong> - สร้างคำขอใหม่</li>
+                    <li><strong>🎯 View Matches</strong> - ดูผู้เชี่ยวชาญที่ AI แนะนำ</li>
+                    <li><strong>📋 My Consultations</strong> - จัดการคำขอทั้งหมด</li>
+                </ul>
+            </div>
+
+            <!-- How it Works -->
+            <div class="section">
+                <h2>🔄 วิธีการทำงาน</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="icon">1️⃣</div>
+                        <h3>บอกความต้องการ</h3>
+                        <p>Seeker สร้างคำขอคำปรึกษา อธิบายปัญหาและความต้องการ</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">2️⃣</div>
+                        <h3>AI วิเคราะห์</h3>
+                        <p>AI วิเคราะห์และให้คะแนนผู้เชี่ยวชาญทุกคน พร้อมอธิบายเหตุผล</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">3️⃣</div>
+                        <h3>เลือกและเชื่อมต่อ</h3>
+                        <p>Seeker เลือกผู้เชี่ยวชาญที่ชอบ ส่งคำขอ และเริ่มทำงานร่วมกัน</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <h2>🎉 พร้อมใช้งานแล้ววันนี้!</h2>
+            <p>ระบบพร้อมสมบูรณ์ 100% รองรับทั้งภาษาไทยและอังกฤษ</p>
+            <div class="buttons">
+                <a href="https://3000-itagcibs0p2c8balh71zz-02b9cc79.sandbox.novita.ai" class="btn btn-primary" target="_blank">
+                    🚀 เปิดเว็บเลย
+                </a>
+                <a href="https://3000-itagcibs0p2c8balh71zz-02b9cc79.sandbox.novita.ai/register" class="btn btn-secondary" target="_blank">
+                    📝 ลองสมัครสมาชิก
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
