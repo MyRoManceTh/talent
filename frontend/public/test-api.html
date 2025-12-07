@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Connection Test</h1>
+    <button onclick="testRegister()">Test Register</button>
+    <div id="result"></div>
+    
+    <script>
+    async function testRegister() {
+        const apiUrl = 'https://5000-itagcibs0p2c8balh71zz-02b9cc79.sandbox.novita.ai/api';
+        const resultDiv = document.getElementById('result');
+        
+        try {
+            resultDiv.innerHTML = 'Testing...';
+            const response = await fetch(apiUrl + '/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: 'htmltest@example.com',
+                    password: 'password123',
+                    firstName: 'HTML',
+                    lastName: 'Test',
+                    role: 'SEEKER'
+                })
+            });
+            
+            const data = await response.json();
+            resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        } catch (error) {
+            resultDiv.innerHTML = '<pre style="color: red;">Error: ' + error.message + '</pre>';
+        }
+    }
+    </script>
+</body>
+</html>
