@@ -203,11 +203,19 @@ const ExpertProfile = () => {
     setLoading(true);
 
     try {
-      await expertService.updateProfile(profile);
+      // Prepare data with proper type conversion
+      const profileData = {
+        ...profile,
+        yearsOfExperience: profile.yearsOfExperience ? parseInt(profile.yearsOfExperience, 10) : null,
+        hourlyRate: profile.hourlyRate ? parseFloat(profile.hourlyRate) : null,
+      };
+
+      await expertService.updateProfile(profileData);
       toast.success('บันทึกโปรไฟล์สำเร็จ!');
       navigate('/expert/dashboard');
     } catch (error) {
-      toast.error(error.message || 'เกิดข้อผิดพลาดในการบันทึก');
+      console.error('Profile save error:', error);
+      toast.error(error.response?.data?.message || error.message || 'เกิดข้อผิดพลาดในการบันทึก');
     } finally {
       setLoading(false);
     }
