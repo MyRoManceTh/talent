@@ -382,61 +382,61 @@ const LandingPage = () => {
       </div>
 
       {/* Testimonials Section */}
-      <div className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <div className="py-10 sm:py-16 lg:py-20 xl:py-24 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="section-title">ความคิดเห็นจากผู้ใช้งาน</h2>
-            <p className="section-subtitle">พวกเขาไว้วางใจและประสบความสำเร็จกับเรา</p>
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 lg:mb-4 text-gray-900">ความคิดเห็นจากผู้ใช้งาน</h2>
+            <p className="text-sm sm:text-base lg:text-lg text-gray-600 px-4 sm:px-0">พวกเขาไว้วางใจและประสบความสำเร็จกับเรา</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             <div className="card">
-              <div className="flex items-center mb-4">
-                <div className="text-yellow-400 text-xl">★★★★★</div>
+              <div className="flex items-center mb-3 sm:mb-4">
+                <div className="text-yellow-400 text-base sm:text-lg lg:text-xl">★★★★★</div>
               </div>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm lg:text-base leading-relaxed">
                 "แพลตฟอร์มที่ยอดเยี่ยม! ช่วยให้เราค้นหาผู้เชี่ยวชาญด้าน Digital Marketing
                 ที่เหมาะสมได้ภายใน 1 วัน ประหยัดเวลาและงบประมาณมาก"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full mr-3"></div>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                 <div>
-                  <div className="font-semibold">สมชาย ใจดี</div>
-                  <div className="text-sm text-gray-500">CEO, Tech Startup</div>
+                  <div className="font-semibold text-xs sm:text-sm lg:text-base">สมชาย ใจดี</div>
+                  <div className="text-[10px] sm:text-xs lg:text-sm text-gray-500">CEO, Tech Startup</div>
                 </div>
               </div>
             </div>
             
             <div className="card">
-              <div className="flex items-center mb-4">
-                <div className="text-yellow-400 text-xl">★★★★★</div>
+              <div className="flex items-center mb-3 sm:mb-4">
+                <div className="text-yellow-400 text-base sm:text-lg lg:text-xl">★★★★★</div>
               </div>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm lg:text-base leading-relaxed">
                 "AI Matching ของ Expert Connect แม่นยำมาก แนะนำผู้เชี่ยวชาญที่ตรงกับความต้องการ
                 และอธิบายเหตุผลชัดเจน ทำให้เราตัดสินใจได้ง่าย"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full mr-3"></div>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                 <div>
-                  <div className="font-semibold">วิภา ศรีสุข</div>
-                  <div className="text-sm text-gray-500">Marketing Director</div>
+                  <div className="font-semibold text-xs sm:text-sm lg:text-base">วิภา ศรีสุข</div>
+                  <div className="text-[10px] sm:text-xs lg:text-sm text-gray-500">Marketing Director</div>
                 </div>
               </div>
             </div>
             
             <div className="card">
-              <div className="flex items-center mb-4">
-                <div className="text-yellow-400 text-xl">★★★★★</div>
+              <div className="flex items-center mb-3 sm:mb-4">
+                <div className="text-yellow-400 text-base sm:text-lg lg:text-xl">★★★★★</div>
               </div>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm lg:text-base leading-relaxed">
                 "ในฐานะผู้เชี่ยวชาญ ผมได้โอกาสดีๆ จากแพลตฟอร์มนี้
                 ได้ทำงานกับองค์กรชั้นนำ และสร้างรายได้เสริมได้เป็นอย่างดี"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full mr-3"></div>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                 <div>
-                  <div className="font-semibold">ดร. ประเสริฐ วงศ์ดี</div>
-                  <div className="text-sm text-gray-500">Business Consultant</div>
+                  <div className="font-semibold text-xs sm:text-sm lg:text-base">ดร. ประเสริฐ วงศ์ดี</div>
+                  <div className="text-[10px] sm:text-xs lg:text-sm text-gray-500">Business Consultant</div>
                 </div>
               </div>
             </div>
@@ -445,44 +445,44 @@ const LandingPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="relative py-24 overflow-hidden">
+      <div className="relative py-12 sm:py-16 lg:py-20 xl:py-24 overflow-hidden">
         <div className="absolute inset-0 gradient-bg"></div>
         
         {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-white/5 sm:bg-white/10 rounded-full blur-2xl sm:blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-accent-500/10 sm:bg-accent-500/20 rounded-full blur-2xl sm:blur-3xl"></div>
         
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-5 lg:mb-6">
             พร้อมที่จะเริ่มต้นหรือยัง?
           </h2>
-          <p className="text-xl mb-10 opacity-90 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 lg:mb-10 opacity-90 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
             เข้าร่วม Expert Connect วันนี้ ค้นหาผู้เชี่ยวชาญที่เหมาะกับคุณ
             และเริ่มขับเคลื่อนธุรกิจของคุณให้เติบโตไปด้วยกัน
           </p>
           {!isAuthenticated && (
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/register" className="bg-white text-primary-600 px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl text-lg">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2.5 sm:gap-3 lg:gap-4 px-4 sm:px-0">
+              <Link to="/register" className="bg-white text-primary-600 px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4 rounded-lg sm:rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg sm:shadow-xl hover:shadow-xl sm:hover:shadow-2xl text-sm sm:text-base lg:text-lg w-full sm:w-auto">
                 เริ่มต้นใช้งานฟรี
               </Link>
-              <Link to="/experts" className="btn-outline text-lg px-10 py-4">
+              <Link to="/experts" className="btn-outline text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4 w-full sm:w-auto">
                 ดูผู้เชี่ยวชาญ
               </Link>
             </div>
           )}
           
           {/* Additional Info */}
-          <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm opacity-80">
-            <div className="flex items-center">
-              <span className="mr-2">✓</span>
+          <div className="mt-8 sm:mt-10 lg:mt-12 flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 lg:gap-8 text-xs sm:text-sm opacity-75 sm:opacity-80">
+            <div className="flex items-center justify-center">
+              <span className="mr-1.5 sm:mr-2">✓</span>
               ฟรีสำหรับการสมัคร
             </div>
-            <div className="flex items-center">
-              <span className="mr-2">✓</span>
+            <div className="flex items-center justify-center">
+              <span className="mr-1.5 sm:mr-2">✓</span>
               AI Matching ภายใน 2 นาที
             </div>
-            <div className="flex items-center">
-              <span className="mr-2">✓</span>
+            <div className="flex items-center justify-center">
+              <span className="mr-1.5 sm:mr-2">✓</span>
               ผู้เชี่ยวชาญ 500+ คน
             </div>
           </div>
@@ -490,25 +490,25 @@ const LandingPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-8 sm:py-10 lg:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">EC</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div className="col-span-1 sm:col-span-2">
+              <div className="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-4">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-md sm:rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-lg sm:text-xl font-bold">EC</span>
                 </div>
-                <span className="text-xl font-bold">Expert Connect</span>
+                <span className="text-lg sm:text-xl font-bold">Expert Connect</span>
               </div>
-              <p className="text-gray-400 mb-4 max-w-md leading-relaxed">
+              <p className="text-gray-400 mb-3 sm:mb-4 max-w-md leading-relaxed text-xs sm:text-sm">
                 แพลตฟอร์มจับคู่ผู้เชี่ยวชาญด้วย AI ที่เชื่อมโยงธุรกิจและองค์กร
                 กับผู้เชี่ยวชาญมืออาชีพ
               </p>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">เมนูหลัก</h3>
-              <ul className="space-y-2 text-gray-400">
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">เมนูหลัก</h3>
+              <ul className="space-y-1.5 sm:space-y-2 text-gray-400 text-xs sm:text-sm">
                 <li><Link to="/experts" className="hover:text-white transition-colors">ผู้เชี่ยวชาญ</Link></li>
                 <li><Link to="/register" className="hover:text-white transition-colors">สมัครสมาชิก</Link></li>
                 <li><Link to="/login" className="hover:text-white transition-colors">เข้าสู่ระบบ</Link></li>
@@ -516,15 +516,15 @@ const LandingPage = () => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">ติดต่อเรา</h3>
-              <ul className="space-y-2 text-gray-400">
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">ติดต่อเรา</h3>
+              <ul className="space-y-1.5 sm:space-y-2 text-gray-400 text-xs sm:text-sm">
                 <li>info@expertconnect.com</li>
                 <li>+66 2 123 4567</li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+          <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400 text-[10px] sm:text-xs lg:text-sm">
             <p>&copy; 2024 Expert Connect. All rights reserved.</p>
           </div>
         </div>
