@@ -8,6 +8,7 @@ const { errorHandler, notFound } = require('./middleware/errorHandler');
 const authRoutes = require('./routes/authRoutes');
 const expertRoutes = require('./routes/expertRoutes');
 const seekerRoutes = require('./routes/seekerRoutes');
+const briefRoutes = require('./routes/briefRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -42,6 +43,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/experts', expertRoutes);
 app.use('/api/seekers', seekerRoutes);
+app.use('/api/briefs', briefRoutes);
 
 // 404 handler
 app.use(notFound);

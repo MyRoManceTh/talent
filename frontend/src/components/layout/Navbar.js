@@ -51,6 +51,14 @@ const Navbar = () => {
                 >
                   คำขอคำปรึกษา
                 </Link>
+                {user?.role === 'SEEKER' && (
+                  <Link
+                    to="/briefs"
+                    className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    My Briefs
+                  </Link>
+                )}
                 <div className="flex items-center space-x-3">
                   <span className="text-sm text-gray-700">
                     {user?.firstName} {user?.lastName}
