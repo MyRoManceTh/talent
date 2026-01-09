@@ -16,11 +16,11 @@ const LandingPage = () => {
                 <span className="text-white text-lg sm:text-xl lg:text-2xl font-bold">EC</span>
               </div>
               <div className="hidden md:block">
-                <span className="text-lg lg:text-2xl font-bold gradient-text">Expert Connect</span>
-                <p className="text-xs text-gray-500 font-light hidden lg:block">AI-Powered Expert Matching</p>
+                <span className="text-lg lg:text-2xl font-bold gradient-text">TALENTER</span>
+                <p className="text-xs text-gray-500 font-light hidden lg:block">กำลังคน สร้างคุณค่า</p>
               </div>
               <div className="md:hidden">
-                <span className="text-base sm:text-lg font-bold gradient-text">Expert Connect</span>
+                <span className="text-base sm:text-lg font-bold gradient-text">TALENTER</span>
               </div>
             </Link>
             
@@ -66,17 +66,23 @@ const LandingPage = () => {
               </div>
               
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-gray-900">
-                เชื่อมต่อกับ
-                <span className="block mt-1 sm:mt-2 gradient-text">
-                  ผู้เชี่ยวชาญที่ใช่
+                <span className="gradient-text">TALENTER</span>
+                <span className="block mt-1 sm:mt-2 text-gray-900">
+                  กำลังคน สร้างคุณค่า
                 </span>
-                สำหรับคุณ
               </h1>
               
               <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed px-2 sm:px-0">
-                แพลตฟอร์มจับคู่ผู้เชี่ยวชาญด้วย AI ที่เชื่อมโยงธุรกิจและองค์กร
-                กับผู้เชี่ยวชาญมืออาชีพ ที่ปรึกษา และผู้ที่มีประสบการณ์
-                เพื่อแก้ปัญหาและขับเคลื่อนธุรกิจของคุณ
+                มาร่วมเป็นส่วนหนึ่งขององค์กร ที่สร้างคุณค่า
+                ให้กับกำลังพลของประเทศไทย<br/>
+                <span className="font-semibold text-primary-600 mt-2 block">
+                  HIGH VALUE • HIGH ENERGY • WORKFORCE
+                </span>
+              </p>
+              
+              <p className="text-xs sm:text-sm lg:text-base text-gray-500 leading-relaxed px-2 sm:px-0">
+                พื้นที่รวมรวมบุคลากรคุณภาพ บุคลากรที่มีประสบการณ์สูง
+                มีศักยภาพสร้างขีดความสามารถในการแข่งขัน และธุรกิจของคุณ
               </p>
               
               <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 lg:gap-4 justify-center lg:justify-start px-2 sm:px-0">
@@ -162,41 +168,44 @@ const LandingPage = () => {
       <div className="py-10 sm:py-16 lg:py-20 xl:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 lg:mb-4 text-gray-900">วิธีการใช้งาน</h2>
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-12 px-4 sm:px-0">เพียง 3 ขั้นตอนง่ายๆ เชื่อมต่อกับผู้เชี่ยวชาญได้ทันที</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 lg:mb-4 text-gray-900">จุดเด่นของเรา</h2>
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-12 px-4 sm:px-0">ระบบที่ออกแบบมาเพื่อความสะดวกและรวดเร็ว</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
             <div className="card-hover">
               <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 shadow-lg">
-                <span className="text-xl sm:text-2xl lg:text-3xl text-white">📝</span>
+                <span className="text-xl sm:text-2xl lg:text-3xl text-white">🏢</span>
               </div>
-              <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 text-center">1. บอกความต้องการ</h3>
+              <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 text-center">ค้นหาง่าย รวดเร็ว</h3>
               <p className="text-xs sm:text-sm lg:text-base text-gray-600 text-center leading-relaxed px-2">
-                บอกเราเกี่ยวกับปัญหาทางธุรกิจ โปรเจกต์ 
-                หรือเป้าหมายที่ต้องการความช่วยเหลือ
+                ระบบจัดการฐานข้อมูลผู้สมัครงาน
+                สามารถจัดการและติดตามข้อมูลพนักงาน
+                และค้นหาพนักงานได้อย่างรวดเร็ว
               </p>
             </div>
             
             <div className="card-hover">
               <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 shadow-lg">
-                <span className="text-xl sm:text-2xl lg:text-3xl text-white">🤖</span>
+                <span className="text-xl sm:text-2xl lg:text-3xl text-white">🎓</span>
               </div>
-              <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 text-center">2. AI จับคู่อัจฉริยะ</h3>
+              <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 text-center">ผู้มีประสบการณ์สูง</h3>
               <p className="text-xs sm:text-sm lg:text-base text-gray-600 text-center leading-relaxed px-2">
-                AI ของเราวิเคราะห์และแนะนำผู้เชี่ยวชาญ
-                ที่เหมาะสมพร้อมเหตุผลละเอียด
+                ผู้บริหารระดับสูงและผู้จัดการ
+                ที่มีประสบการณ์สูงหลากหลายสายงาน
+                พร้อมให้คำปรึกษาอย่างมืออาชีพ
               </p>
             </div>
             
             <div className="card-hover">
               <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 shadow-lg">
-                <span className="text-xl sm:text-2xl lg:text-3xl text-white">🤝</span>
+                <span className="text-xl sm:text-2xl lg:text-3xl text-white">💬</span>
               </div>
-              <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 text-center">3. เชื่อมต่อและทำงาน</h3>
+              <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 text-center">Line</h3>
               <p className="text-xs sm:text-sm lg:text-base text-gray-600 text-center leading-relaxed px-2">
-                ติดต่อผู้เชี่ยวชาญที่จับคู่ได้
-                และเริ่มการให้คำปรึกษาทันที
+                ติดต่อสะดวก รวดเร็ว
+                ผ่าน LINE ที่ทุกคนคุ้นเคย
+                สื่อสารได้ง่ายและทันใจ
               </p>
             </div>
           </div>
@@ -498,11 +507,11 @@ const LandingPage = () => {
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-md sm:rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-white text-lg sm:text-xl font-bold">EC</span>
                 </div>
-                <span className="text-lg sm:text-xl font-bold">Expert Connect</span>
+                <span className="text-lg sm:text-xl font-bold">TALENTER</span>
               </div>
               <p className="text-gray-400 mb-3 sm:mb-4 max-w-md leading-relaxed text-xs sm:text-sm">
-                แพลตฟอร์มจับคู่ผู้เชี่ยวชาญด้วย AI ที่เชื่อมโยงธุรกิจและองค์กร
-                กับผู้เชี่ยวชาญมืออาชีพ
+                พื้นที่รวมรวมบุคลากรคุณภาพ มาร่วมสร้างคุณค่า
+                ให้กับกำลังพลของประเทศไทย
               </p>
             </div>
             
@@ -525,7 +534,7 @@ const LandingPage = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400 text-[10px] sm:text-xs lg:text-sm">
-            <p>&copy; 2024 Expert Connect. All rights reserved.</p>
+            <p>&copy; 2024 TALENTER by Talent Thailand. All rights reserved.</p>
           </div>
         </div>
       </footer>
