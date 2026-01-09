@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const expertRoutes = require('./routes/expertRoutes');
 const seekerRoutes = require('./routes/seekerRoutes');
 const briefRoutes = require('./routes/briefRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -44,6 +45,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/experts', expertRoutes);
 app.use('/api/seekers', seekerRoutes);
 app.use('/api/briefs', briefRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use(notFound);

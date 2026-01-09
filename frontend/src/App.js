@@ -28,6 +28,11 @@ import CreateBrief from './pages/seeker/CreateBrief';
 import EditBrief from './pages/seeker/EditBrief';
 import BriefRecommendations from './pages/seeker/BriefRecommendations';
 
+// Admin Pages
+import AdminDashboard from './pages/admin/AdminDashboard';
+import ManageUsers from './pages/admin/ManageUsers';
+import ManageExperts from './pages/admin/ManageExperts';
+
 function App() {
   return (
     <AuthProvider>
@@ -140,6 +145,32 @@ function App() {
               element={
                 <PrivateRoute role="SEEKER">
                   <BriefRecommendations />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Admin Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <PrivateRoute role="ADMIN">
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <PrivateRoute role="ADMIN">
+                  <ManageUsers />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/experts"
+              element={
+                <PrivateRoute role="ADMIN">
+                  <ManageExperts />
                 </PrivateRoute>
               }
             />

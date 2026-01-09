@@ -39,31 +39,56 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link
-                  to={user?.role === 'EXPERT' ? '/expert/dashboard' : '/seeker/dashboard'}
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  หน้าหลัก
-                </Link>
-                <Link
-                  to={user?.role === 'EXPERT' ? '/expert/profile' : '/seeker/profile'}
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  โปรไฟล์
-                </Link>
-                <Link
-                  to={user?.role === 'EXPERT' ? '/expert/consultations' : '/seeker/consultations'}
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  คำขอคำปรึกษา
-                </Link>
-                {user?.role === 'SEEKER' && (
-                  <Link
-                    to="/briefs"
-                    className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                  >
-                    My Briefs
-                  </Link>
+                {user?.role === 'ADMIN' ? (
+                  <>
+                    <Link
+                      to="/admin/dashboard"
+                      className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      🔧 Dashboard
+                    </Link>
+                    <Link
+                      to="/admin/users"
+                      className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      👥 ผู้ใช้
+                    </Link>
+                    <Link
+                      to="/admin/experts"
+                      className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      🎓 ผู้เชี่ยวชาญ
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to={user?.role === 'EXPERT' ? '/expert/dashboard' : '/seeker/dashboard'}
+                      className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      หน้าหลัก
+                    </Link>
+                    <Link
+                      to={user?.role === 'EXPERT' ? '/expert/profile' : '/seeker/profile'}
+                      className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      โปรไฟล์
+                    </Link>
+                    <Link
+                      to={user?.role === 'EXPERT' ? '/expert/consultations' : '/seeker/consultations'}
+                      className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      คำขอคำปรึกษา
+                    </Link>
+                    {user?.role === 'SEEKER' && (
+                      <Link
+                        to="/briefs"
+                        className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                      >
+                        My Briefs
+                      </Link>
+                    )}
+                  </>
                 )}
                 <div className="flex items-center space-x-3 pl-4 border-l-2 border-gray-200">
                   <div className="flex items-center space-x-2">
