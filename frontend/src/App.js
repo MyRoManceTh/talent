@@ -33,6 +33,9 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageExperts from './pages/admin/ManageExperts';
 
+// Talenter Profile
+import TalenterProfile from './pages/TalenterProfile';
+
 function App() {
   return (
     <AuthProvider>
@@ -48,6 +51,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/experts" element={<ExpertsShowcase />} />
             <Route path="/expert/:id" element={<ExpertDetailPage />} />
+            <Route path="/talenter-profile" element={<TalenterProfile />} />
 
             {/* Expert Routes */}
             <Route
