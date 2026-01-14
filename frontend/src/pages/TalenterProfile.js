@@ -69,6 +69,48 @@ const TalenterProfile = () => {
     }));
   };
 
+  // Add new experience field
+  const addExperience = () => {
+    setFormData(prev => ({
+      ...prev,
+      experiences: [...prev.experiences, { text: '' }]
+    }));
+  };
+
+  // Remove experience field
+  const removeExperience = (index) => {
+    if (formData.experiences.length > 1) {
+      const newExperiences = formData.experiences.filter((_, i) => i !== index);
+      setFormData(prev => ({
+        ...prev,
+        experiences: newExperiences
+      }));
+    } else {
+      toast.warning('ต้องมีอย่างน้อย 1 ประสบการณ์');
+    }
+  };
+
+  // Add new skill field
+  const addSkill = () => {
+    setFormData(prev => ({
+      ...prev,
+      skills: [...prev.skills, { text: '' }]
+    }));
+  };
+
+  // Remove skill field
+  const removeSkill = (index) => {
+    if (formData.skills.length > 1) {
+      const newSkills = formData.skills.filter((_, i) => i !== index);
+      setFormData(prev => ({
+        ...prev,
+        skills: newSkills
+      }));
+    } else {
+      toast.warning('ต้องมีอย่างน้อย 1 ทักษะ');
+    }
+  };
+
   const handleInterestChange = (interest) => {
     setFormData(prev => ({
       ...prev,
@@ -389,15 +431,38 @@ const TalenterProfile = () => {
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               {/* Left - Work Experience */}
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h2 className="text-lg font-semibold text-blue-700 mb-4 text-center">
-                  ประสบการณ์ทำงานสำคัญ
-                </h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-blue-700 text-center flex-1">
+                    ประสบการณ์ทำงานสำคัญ
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={addExperience}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1"
+                    title="เพิ่มประสบการณ์"
+                  >
+                    <span>➕</span>
+                    <span>เพิ่ม</span>
+                  </button>
+                </div>
                 <div className="space-y-3">
                   {formData.experiences.map((exp, index) => (
-                    <div key={index}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        ประสบการณ์ที่ {index + 1}
-                      </label>
+                    <div key={index} className="relative">
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-sm font-medium text-gray-700">
+                          ประสบการณ์ที่ {index + 1}
+                        </label>
+                        {formData.experiences.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeExperience(index)}
+                            className="text-red-500 hover:text-red-700 text-xs font-medium transition-colors"
+                            title="ลบประสบการณ์นี้"
+                          >
+                            🗑️ ลบ
+                          </button>
+                        )}
+                      </div>
                       <textarea
                         value={exp.text}
                         onChange={(e) => handleExperienceChange(index, e.target.value)}
@@ -408,19 +473,45 @@ const TalenterProfile = () => {
                     </div>
                   ))}
                 </div>
+                <p className="text-xs text-blue-600 mt-3 text-center">
+                  💡 คลิก "➕ เพิ่ม" เพื่อเพิ่มประสบการณ์เพิ่มเติม ({formData.experiences.length} รายการ)
+                </p>
               </div>
 
               {/* Right - Special Skills */}
               <div className="bg-purple-50 p-6 rounded-lg">
-                <h2 className="text-lg font-semibold text-purple-700 mb-4 text-center">
-                  จุดแข็งที่สามารถถ่ายทอดให้ผู้อื่นได้ / ทักษะพิเศษ
-                </h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-purple-700 text-center flex-1">
+                    จุดแข็งที่สามารถถ่ายทอดให้ผู้อื่นได้ / ทักษะพิเศษ
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={addSkill}
+                    className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1"
+                    title="เพิ่มทักษะ"
+                  >
+                    <span>➕</span>
+                    <span>เพิ่ม</span>
+                  </button>
+                </div>
                 <div className="space-y-3">
                   {formData.skills.map((skill, index) => (
-                    <div key={index}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        ทักษะที่ {index + 1}
-                      </label>
+                    <div key={index} className="relative">
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-sm font-medium text-gray-700">
+                          ทักษะที่ {index + 1}
+                        </label>
+                        {formData.skills.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeSkill(index)}
+                            className="text-red-500 hover:text-red-700 text-xs font-medium transition-colors"
+                            title="ลบทักษะนี้"
+                          >
+                            🗑️ ลบ
+                          </button>
+                        )}
+                      </div>
                       <textarea
                         value={skill.text}
                         onChange={(e) => handleSkillChange(index, e.target.value)}
@@ -431,6 +522,9 @@ const TalenterProfile = () => {
                     </div>
                   ))}
                 </div>
+                <p className="text-xs text-purple-600 mt-3 text-center">
+                  💡 คลิก "➕ เพิ่ม" เพื่อเพิ่มทักษะเพิ่มเติม ({formData.skills.length} รายการ)
+                </p>
               </div>
             </div>
 
