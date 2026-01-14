@@ -431,20 +431,9 @@ const TalenterProfile = () => {
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               {/* Left - Work Experience */}
               <div className="bg-blue-50 p-6 rounded-lg">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-blue-700 text-center flex-1">
-                    ประสบการณ์ทำงานสำคัญ
-                  </h2>
-                  <button
-                    type="button"
-                    onClick={addExperience}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1"
-                    title="เพิ่มประสบการณ์"
-                  >
-                    <span>➕</span>
-                    <span>เพิ่ม</span>
-                  </button>
-                </div>
+                <h2 className="text-lg font-semibold text-blue-700 text-center mb-4">
+                  ประสบการณ์ทำงานสำคัญ
+                </h2>
                 <div className="space-y-3">
                   {formData.experiences.map((exp, index) => (
                     <div key={index} className="relative">
@@ -473,27 +462,27 @@ const TalenterProfile = () => {
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-blue-600 mt-3 text-center">
-                  💡 คลิก "➕ เพิ่ม" เพื่อเพิ่มประสบการณ์เพิ่มเติม ({formData.experiences.length} รายการ)
-                </p>
-              </div>
-
-              {/* Right - Special Skills */}
-              <div className="bg-purple-50 p-6 rounded-lg">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-purple-700 text-center flex-1">
-                    จุดแข็งที่สามารถถ่ายทอดให้ผู้อื่นได้ / ทักษะพิเศษ
-                  </h2>
+                <div className="mt-4 text-center">
                   <button
                     type="button"
-                    onClick={addSkill}
-                    className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1"
-                    title="เพิ่มทักษะ"
+                    onClick={addExperience}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-2"
+                    title="เพิ่มประสบการณ์"
                   >
                     <span>➕</span>
                     <span>เพิ่ม</span>
                   </button>
+                  <p className="text-xs text-blue-600 mt-2">
+                    💡 คลิก "➕ เพิ่ม" เพื่อเพิ่มประสบการณ์เพิ่มเติม ({formData.experiences.length} รายการ)
+                  </p>
                 </div>
+              </div>
+
+              {/* Right - Special Skills */}
+              <div className="bg-purple-50 p-6 rounded-lg">
+                <h2 className="text-lg font-semibold text-purple-700 text-center mb-4">
+                  จุดแข็งที่สามารถถ่ายทอดให้ผู้อื่นได้ / ทักษะพิเศษ
+                </h2>
                 <div className="space-y-3">
                   {formData.skills.map((skill, index) => (
                     <div key={index} className="relative">
@@ -522,9 +511,20 @@ const TalenterProfile = () => {
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-purple-600 mt-3 text-center">
-                  💡 คลิก "➕ เพิ่ม" เพื่อเพิ่มทักษะเพิ่มเติม ({formData.skills.length} รายการ)
-                </p>
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    onClick={addSkill}
+                    className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-2"
+                    title="เพิ่มทักษะ"
+                  >
+                    <span>➕</span>
+                    <span>เพิ่ม</span>
+                  </button>
+                  <p className="text-xs text-purple-600 mt-2">
+                    💡 คลิก "➕ เพิ่ม" เพื่อเพิ่มทักษะเพิ่มเติม ({formData.skills.length} รายการ)
+                  </p>
+                </div>
               </div>
             </div>
 
