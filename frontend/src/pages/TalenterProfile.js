@@ -10,7 +10,7 @@ const TalenterProfile = () => {
     lastName: '',
     organization: '',
     birthDate: '',
-    workStatus: 'ปฏิบัติงานอยู่',
+    workStatus: '',
     otherStatus: '',
     phoneNumber: '',
     profileImage: null,
