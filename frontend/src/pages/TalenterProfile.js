@@ -9,6 +9,7 @@ const TalenterProfile = () => {
     firstName: '',
     lastName: '',
     organization: '',
+    position: '',
     birthDate: '',
     workStatus: '',
     otherStatus: '',
@@ -149,6 +150,11 @@ const TalenterProfile = () => {
       return;
     }
     
+    if (!formData.position) {
+      toast.error('กรุณากรอกตำแหน่งงาน');
+      return;
+    }
+    
     if (!formData.birthDate) {
       toast.error('กรุณากรอกวัน/เดือน/ปีเกิด');
       return;
@@ -220,20 +226,36 @@ const TalenterProfile = () => {
                     </div>
                   </div>
 
-                  {/* Organization */}
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      บริษัท/องค์กร/หน่วยงาน <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="organization"
-                      value={formData.organization}
-                      onChange={handleChange}
-                      className="input-field"
-                      placeholder="ระบุชื่อบริษัท/องค์กร/หน่วยงาน"
-                      required
-                    />
+                  {/* Organization & Position */}
+                  <div className="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        บริษัท/องค์กร/หน่วยงาน <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="organization"
+                        value={formData.organization}
+                        onChange={handleChange}
+                        className="input-field"
+                        placeholder="ระบุชื่อบริษัท/องค์กร/หน่วยงาน"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        ตำแหน่งงาน <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="position"
+                        value={formData.position}
+                        onChange={handleChange}
+                        className="input-field"
+                        placeholder="ระบุตำแหน่งงาน"
+                        required
+                      />
+                    </div>
                   </div>
 
                   {/* Birth Date & Phone */}
