@@ -283,7 +283,7 @@ const TalenterProfile = () => {
                           onChange={handleChange}
                           className="mr-2"
                         />
-                        <span className="text-gray-700">☑ ปฏิบัติงานอยู่</span>
+                        <span className="text-gray-700">ปฏิบัติงานอยู่</span>
                       </label>
                       <label className="flex items-center">
                         <input
@@ -294,7 +294,7 @@ const TalenterProfile = () => {
                           onChange={handleChange}
                           className="mr-2"
                         />
-                        <span className="text-gray-700">☐ เกษียณ</span>
+                        <span className="text-gray-700">เกษียณ</span>
                       </label>
                       <label className="flex items-center">
                         <input
@@ -305,7 +305,7 @@ const TalenterProfile = () => {
                           onChange={handleChange}
                           className="mr-2"
                         />
-                        <span className="text-gray-700">☐ กำลังหางาน</span>
+                        <span className="text-gray-700">กำลังหางาน</span>
                       </label>
                       <label className="flex items-center">
                         <input
@@ -316,7 +316,7 @@ const TalenterProfile = () => {
                           onChange={handleChange}
                           className="mr-2"
                         />
-                        <span className="text-gray-700">☐ อื่นๆ โปรดระบุ</span>
+                        <span className="text-gray-700">อื่นๆ โปรดระบุ</span>
                       </label>
                       {formData.workStatus === 'อื่นๆ' && (
                         <input
