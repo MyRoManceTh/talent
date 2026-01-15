@@ -126,18 +126,23 @@ const updateExpertProfile = async (req, res, next) => {
         where: { expertId: expert.id },
       });
 
-      // Create new educations
+      // Create new educations with proper type conversion
       if (education.length > 0) {
+        const educationData = education.map(edu => ({
+          expertId: expert.id,
+          institution: edu.institution,
+          degree: edu.degree,
+          fieldOfStudy: edu.fieldOfStudy || null,
+          // Convert to Int properly
+          startYear: edu.startYear ? parseInt(String(edu.startYear), 10) : null,
+          endYear: edu.endYear ? parseInt(String(edu.endYear), 10) : null,
+          description: edu.description || null,
+        }));
+        
+        console.log('Creating education with data:', educationData);
+        
         await prisma.education.createMany({
-          data: education.map(edu => ({
-            expertId: expert.id,
-            institution: edu.institution,
-            degree: edu.degree,
-            fieldOfStudy: edu.fieldOfStudy || null,
-            startYear: edu.startYear ? String(edu.startYear) : null,
-            endYear: edu.endYear ? String(edu.endYear) : null,
-            description: edu.description || null,
-          })),
+          data: educationData,
         });
       }
     }
