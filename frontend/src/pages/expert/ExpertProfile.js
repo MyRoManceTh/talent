@@ -605,30 +605,30 @@ const ExpertProfile = () => {
                     <label className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={profile.missionInterests.includes('พัฒนาบุคลากรในองค์กร')}
+                        checked={profile.missionInterests.includes('กลุ่มพัฒนากำลังคน')}
                         onChange={(e) => {
                           const interests = e.target.checked
-                            ? [...profile.missionInterests, 'พัฒนาบุคลากรในองค์กร']
-                            : profile.missionInterests.filter(i => i !== 'พัฒนาบุคลากรในองค์กร');
+                            ? [...profile.missionInterests, 'กลุ่มพัฒนากำลังคน']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มพัฒนากำลังคน');
                           handleProfileChange('missionInterests', interests);
                         }}
                         className="mr-2"
                       />
-                      <span className="text-gray-700">กลุ่มพัฒนาทำกำลังงาน</span>
+                      <span className="text-gray-700">กลุ่มพัฒนากำลังคน</span>
                     </label>
                     <label className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={profile.missionInterests.includes('กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน')}
+                        checked={profile.missionInterests.includes('กลุ่มใช้ศักยภาพ วัยเกษียณ – วัยทำงาน')}
                         onChange={(e) => {
                           const interests = e.target.checked
-                            ? [...profile.missionInterests, 'กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน']
-                            : profile.missionInterests.filter(i => i !== 'กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน');
+                            ? [...profile.missionInterests, 'กลุ่มใช้ศักยภาพ วัยเกษียณ – วัยทำงาน']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มใช้ศักยภาพ วัยเกษียณ – วัยทำงาน');
                           handleProfileChange('missionInterests', interests);
                         }}
                         className="mr-2"
                       />
-                      <span className="text-gray-700">กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน</span>
+                      <span className="text-gray-700">กลุ่มใช้ศักยภาพ วัยเกษียณ – วัยทำงาน</span>
                     </label>
                     <label className="flex items-center">
                       <input
@@ -647,30 +647,30 @@ const ExpertProfile = () => {
                     <label className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={profile.missionInterests.includes('กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ')}
+                        checked={profile.missionInterests.includes('กลุ่มสร้างเครือข่ายความร่วมมือ ภาคส่วนต่าง ๆ')}
                         onChange={(e) => {
                           const interests = e.target.checked
-                            ? [...profile.missionInterests, 'กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ']
-                            : profile.missionInterests.filter(i => i !== 'กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ');
+                            ? [...profile.missionInterests, 'กลุ่มสร้างเครือข่ายความร่วมมือ ภาคส่วนต่าง ๆ']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มสร้างเครือข่ายความร่วมมือ ภาคส่วนต่าง ๆ');
                           handleProfileChange('missionInterests', interests);
                         }}
                         className="mr-2"
                       />
-                      <span className="text-gray-700">กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ</span>
+                      <span className="text-gray-700">กลุ่มสร้างเครือข่ายความร่วมมือ ภาคส่วนต่าง ๆ</span>
                     </label>
                     <label className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={profile.missionInterests.includes('กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ')}
+                        checked={profile.missionInterests.includes('กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ')}
                         onChange={(e) => {
                           const interests = e.target.checked
-                            ? [...profile.missionInterests, 'กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ']
-                            : profile.missionInterests.filter(i => i !== 'กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ');
+                            ? [...profile.missionInterests, 'กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ');
                           handleProfileChange('missionInterests', interests);
                         }}
                         className="mr-2"
                       />
-                      <span className="text-gray-700">กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ</span>
+                      <span className="text-gray-700">กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ</span>
                     </label>
                   </div>
                 </div>
