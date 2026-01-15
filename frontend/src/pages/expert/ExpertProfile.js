@@ -95,14 +95,29 @@ const ExpertProfile = () => {
 
   // Education handlers
   const addEducation = () => {
+    console.log('🎓 Adding education:', newEducation);
+    
     if (!newEducation.institution || !newEducation.degree) {
       toast.error('กรุณากรอกสถาบันและระดับการศึกษา');
       return;
     }
-    setProfile(prev => ({
-      ...prev,
-      education: [...prev.education, { ...newEducation, id: Date.now() }]
-    }));
+    
+    const educationToAdd = { 
+      ...newEducation, 
+      id: Date.now() 
+    };
+    
+    console.log('✅ Education item to add:', educationToAdd);
+    
+    setProfile(prev => {
+      const updated = {
+        ...prev,
+        education: [...prev.education, educationToAdd]
+      };
+      console.log('📚 Updated education array:', updated.education);
+      return updated;
+    });
+    
     setNewEducation({
       institution: '',
       degree: '',
@@ -111,6 +126,7 @@ const ExpertProfile = () => {
       endYear: '',
       description: ''
     });
+    
     toast.success('เพิ่มข้อมูลการศึกษาแล้ว');
   };
 
