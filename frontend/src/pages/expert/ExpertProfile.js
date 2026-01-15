@@ -22,6 +22,14 @@ const ExpertProfile = () => {
     preferredMode: [],
     languages: [],
     
+    // Talenter Fields
+    dateOfBirth: '',
+    currentCompany: '',
+    currentPosition: '',
+    workStatus: 'WORKING',
+    contactPhone: '',
+    missionInterests: [],
+    
     // การศึกษา
     education: [],
     
@@ -34,6 +42,12 @@ const ExpertProfile = () => {
     // ผลงาน/รางวัล
     achievements: []
   });
+
+  // Form visibility states
+  const [showEducationForm, setShowEducationForm] = useState(false);
+  const [showExperienceForm, setShowExperienceForm] = useState(false);
+  const [showSkillForm, setShowSkillForm] = useState(false);
+  const [showAchievementForm, setShowAchievementForm] = useState(false);
 
   // Temporary states for adding new items
   const [newEducation, setNewEducation] = useState({
@@ -51,6 +65,7 @@ const ExpertProfile = () => {
     startDate: '',
     endDate: '',
     description: '',
+    keyResponsibilities: '',
     isCurrent: false
   });
 
@@ -127,6 +142,7 @@ const ExpertProfile = () => {
       description: ''
     });
     
+    setShowEducationForm(false);
     toast.success('เพิ่มข้อมูลการศึกษาแล้ว');
   };
 
@@ -155,6 +171,7 @@ const ExpertProfile = () => {
       description: '',
       isCurrent: false
     });
+    setShowExperienceForm(false);
     toast.success('เพิ่มประสบการณ์การทำงานแล้ว');
   };
 
@@ -180,6 +197,7 @@ const ExpertProfile = () => {
       category: 'TECHNICAL',
       proficiencyLevel: 'INTERMEDIATE'
     });
+    setShowSkillForm(false);
     toast.success('เพิ่มทักษะแล้ว');
   };
 
@@ -206,6 +224,7 @@ const ExpertProfile = () => {
       date: '',
       organization: ''
     });
+    setShowAchievementForm(false);
     toast.success('เพิ่มผลงานแล้ว');
   };
 
@@ -456,6 +475,207 @@ const ExpertProfile = () => {
                 />
               </div>
 
+              {/* Talenter Additional Fields */}
+              <div className="border-t pt-6 mt-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">ข้อมูลเพิ่มเติม (Talenter)</h3>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      วันเกิด
+                    </label>
+                    <input
+                      type="date"
+                      value={profile.dateOfBirth ? profile.dateOfBirth.split('T')[0] : ''}
+                      onChange={(e) => handleProfileChange('dateOfBirth', e.target.value)}
+                      className="w-full input-field"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      เบอร์โทรศัพท์ติดต่อ
+                    </label>
+                    <input
+                      type="tel"
+                      value={profile.contactPhone}
+                      onChange={(e) => handleProfileChange('contactPhone', e.target.value)}
+                      placeholder="เช่น: 089-123-4567"
+                      className="w-full input-field"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 mt-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      บริษัท/องค์กร/หน่วยงานปัจจุบัน
+                    </label>
+                    <input
+                      type="text"
+                      value={profile.currentCompany}
+                      onChange={(e) => handleProfileChange('currentCompany', e.target.value)}
+                      placeholder="เช่น: บริษัท ABC จำกัด"
+                      className="w-full input-field"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      ตำแหน่งงานปัจจุบัน
+                    </label>
+                    <input
+                      type="text"
+                      value={profile.currentPosition}
+                      onChange={(e) => handleProfileChange('currentPosition', e.target.value)}
+                      placeholder="เช่น: Chief Technology Officer"
+                      className="w-full input-field"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    สถานะภาพการทำงาน
+                  </label>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="workStatus"
+                        value="WORKING"
+                        checked={profile.workStatus === 'WORKING'}
+                        onChange={(e) => handleProfileChange('workStatus', e.target.value)}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">ปฏิบัติงานอยู่</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="workStatus"
+                        value="RETIRED"
+                        checked={profile.workStatus === 'RETIRED'}
+                        onChange={(e) => handleProfileChange('workStatus', e.target.value)}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">เกษียณ</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="workStatus"
+                        value="LOOKING"
+                        checked={profile.workStatus === 'LOOKING'}
+                        onChange={(e) => handleProfileChange('workStatus', e.target.value)}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">กำลังหางาน</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="workStatus"
+                        value="FREELANCE"
+                        checked={profile.workStatus === 'FREELANCE'}
+                        onChange={(e) => handleProfileChange('workStatus', e.target.value)}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">ฟรีแลนซ์</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="workStatus"
+                        value="OTHER"
+                        checked={profile.workStatus === 'OTHER'}
+                        onChange={(e) => handleProfileChange('workStatus', e.target.value)}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">อื่นๆ</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                    ภารกิจที่สนใจ
+                  </label>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={profile.missionInterests.includes('พัฒนาบุคลากรในองค์กร')}
+                        onChange={(e) => {
+                          const interests = e.target.checked
+                            ? [...profile.missionInterests, 'พัฒนาบุคลากรในองค์กร']
+                            : profile.missionInterests.filter(i => i !== 'พัฒนาบุคลากรในองค์กร');
+                          handleProfileChange('missionInterests', interests);
+                        }}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">กลุ่มพัฒนาทำกำลังงาน</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={profile.missionInterests.includes('กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน')}
+                        onChange={(e) => {
+                          const interests = e.target.checked
+                            ? [...profile.missionInterests, 'กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน');
+                          handleProfileChange('missionInterests', interests);
+                        }}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">กลุ่มใช้ศักยภาพ วัยหยุดยั้ง - วัยทำงาน</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={profile.missionInterests.includes('กลุ่มพัฒนาเยาวชน')}
+                        onChange={(e) => {
+                          const interests = e.target.checked
+                            ? [...profile.missionInterests, 'กลุ่มพัฒนาเยาวชน']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มพัฒนาเยาวชน');
+                          handleProfileChange('missionInterests', interests);
+                        }}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">กลุ่มพัฒนาเยาวชน</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={profile.missionInterests.includes('กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ')}
+                        onChange={(e) => {
+                          const interests = e.target.checked
+                            ? [...profile.missionInterests, 'กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ');
+                          handleProfileChange('missionInterests', interests);
+                        }}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">กลุ่มสร้างเครื่อข่ายความร่วมมือภาคส่วนต่าง ๆ</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={profile.missionInterests.includes('กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ')}
+                        onChange={(e) => {
+                          const interests = e.target.checked
+                            ? [...profile.missionInterests, 'กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ']
+                            : profile.missionInterests.filter(i => i !== 'กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ');
+                          handleProfileChange('missionInterests', interests);
+                        }}
+                        className="mr-2"
+                      />
+                      <span className="text-gray-700">กลุ่มการสื่อสาร และสร้างเครงนนัดคลใจ</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   จังหวัด
@@ -547,32 +767,43 @@ const ExpertProfile = () => {
           {currentStep === 2 && (
             <div className="bg-white rounded-lg shadow p-6 space-y-6">
               <h2 className="text-xl font-bold text-gray-900">การศึกษา</h2>
+              <p className="text-gray-600">เพิ่มประวัติการศึกษาของคุณ</p>
 
               {/* Existing Education List */}
               {profile.education.length > 0 && (
-                <div className="space-y-4">
+                <div className="space-y-3 mb-4">
                   {profile.education.map((edu) => (
-                    <div key={edu.id} className="border rounded-lg p-4 bg-gray-50">
+                    <div key={edu.id} className="border-l-4 border-primary-500 bg-gray-50 rounded-r-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
-                          <p className="text-gray-700">{edu.institution}</p>
+                          <h3 className="font-bold text-gray-900 text-lg">{edu.degree}</h3>
+                          <p className="text-gray-700 font-medium">{edu.institution}</p>
                           {edu.fieldOfStudy && (
-                            <p className="text-sm text-gray-600">สาขา: {edu.fieldOfStudy}</p>
+                            <p className="text-sm text-gray-600 mt-1">
+                              <span className="font-medium">สาขา:</span> {edu.fieldOfStudy}
+                            </p>
                           )}
-                          <p className="text-sm text-gray-500">
-                            {edu.startYear} - {edu.endYear || 'ปัจจุบัน'}
+                          <p className="text-sm text-gray-500 mt-1">
+                            <span className="inline-flex items-center">
+                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              {edu.startYear} - {edu.endYear || 'ปัจจุบัน'}
+                            </span>
                           </p>
                           {edu.description && (
-                            <p className="text-sm text-gray-600 mt-2">{edu.description}</p>
+                            <p className="text-sm text-gray-600 mt-2 pl-3 border-l-2 border-gray-300">{edu.description}</p>
                           )}
                         </div>
                         <button
                           type="button"
                           onClick={() => removeEducation(edu.id)}
-                          className="text-red-600 hover:text-red-800 ml-4"
+                          className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          title="ลบ"
                         >
-                          ลบ
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -580,104 +811,160 @@ const ExpertProfile = () => {
                 </div>
               )}
 
-              {/* Add New Education Form */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 space-y-4">
-                <h3 className="font-semibold text-gray-900">เพิ่มข้อมูลการศึกษา</h3>
-                
-                <div className="grid md:grid-cols-2 gap-4">
+              {/* Add New Education Form - Shows only when button clicked */}
+              {showEducationForm && (
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-semibold text-gray-900 text-lg">เพิ่มข้อมูลการศึกษา</h3>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowEducationForm(false);
+                        setNewEducation({
+                          institution: '',
+                          degree: '',
+                          fieldOfStudy: '',
+                          startYear: '',
+                          endYear: '',
+                          description: ''
+                        });
+                      }}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        สถาบัน <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={newEducation.institution}
+                        onChange={(e) => setNewEducation({...newEducation, institution: e.target.value})}
+                        placeholder="เช่น: จุฬาลงกรณ์มหาวิทยาลัย"
+                        className="w-full input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        ระดับการศึกษา <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={newEducation.degree}
+                        onChange={(e) => setNewEducation({...newEducation, degree: e.target.value})}
+                        placeholder="เช่น: ปริญญาตรี, ปริญญาโท, ปริญญาเอก"
+                        className="w-full input-field"
+                      />
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      สถาบัน *
+                      สาขาวิชา
                     </label>
                     <input
                       type="text"
-                      value={newEducation.institution}
-                      onChange={(e) => setNewEducation({...newEducation, institution: e.target.value})}
-                      placeholder="เช่น: จุฬาลงกรณ์มหาวิทยาลัย"
+                      value={newEducation.fieldOfStudy}
+                      onChange={(e) => setNewEducation({...newEducation, fieldOfStudy: e.target.value})}
+                      placeholder="เช่น: วิทยาการคอมพิวเตอร์"
                       className="w-full input-field"
                     />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        ปีที่เริ่ม
+                      </label>
+                      <input
+                        type="number"
+                        value={newEducation.startYear}
+                        onChange={(e) => setNewEducation({...newEducation, startYear: e.target.value ? parseInt(e.target.value) : ''})}
+                        placeholder="2010"
+                        min="1950"
+                        max="2030"
+                        className="w-full input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        ปีที่จบ
+                      </label>
+                      <input
+                        type="number"
+                        value={newEducation.endYear}
+                        onChange={(e) => setNewEducation({...newEducation, endYear: e.target.value ? parseInt(e.target.value) : ''})}
+                        placeholder="2014 (ว่างไว้ถ้ายังศึกษาอยู่)"
+                        min="1950"
+                        max="2030"
+                        className="w-full input-field"
+                      />
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ระดับการศึกษา *
+                      รายละเอียดเพิ่มเติม
                     </label>
-                    <input
-                      type="text"
-                      value={newEducation.degree}
-                      onChange={(e) => setNewEducation({...newEducation, degree: e.target.value})}
-                      placeholder="เช่น: ปริญญาเอก"
-                      className="w-full input-field"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    สาขาวิชา
-                  </label>
-                  <input
-                    type="text"
-                    value={newEducation.fieldOfStudy}
-                    onChange={(e) => setNewEducation({...newEducation, fieldOfStudy: e.target.value})}
-                    placeholder="เช่น: วิทยาการคอมพิวเตอร์"
-                    className="w-full input-field"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ปีที่เริ่ม
-                    </label>
-                    <input
-                      type="number"
-                      value={newEducation.startYear}
-                      onChange={(e) => setNewEducation({...newEducation, startYear: e.target.value ? parseInt(e.target.value) : ''})}
-                      placeholder="2010"
-                      min="1950"
-                      max="2030"
+                    <textarea
+                      value={newEducation.description}
+                      onChange={(e) => setNewEducation({...newEducation, description: e.target.value})}
+                      rows={3}
+                      placeholder="GPA, เกียรตินิยม, โครงงาน, หรือรายละเอียดอื่นๆ"
                       className="w-full input-field"
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ปีที่จบ
-                    </label>
-                    <input
-                      type="number"
-                      value={newEducation.endYear}
-                      onChange={(e) => setNewEducation({...newEducation, endYear: e.target.value ? parseInt(e.target.value) : ''})}
-                      placeholder="2014"
-                      min="1950"
-                      max="2030"
-                      className="w-full input-field"
-                    />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={addEducation}
+                      className="flex-1 bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 font-medium transition-colors"
+                    >
+                      ✓ บันทึก
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowEducationForm(false);
+                        setNewEducation({
+                          institution: '',
+                          degree: '',
+                          fieldOfStudy: '',
+                          startYear: '',
+                          endYear: '',
+                          description: ''
+                        });
+                      }}
+                      className="px-6 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 font-medium transition-colors"
+                    >
+                      ยกเลิก
+                    </button>
                   </div>
                 </div>
+              )}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    รายละเอียดเพิ่มเติม
-                  </label>
-                  <textarea
-                    value={newEducation.description}
-                    onChange={(e) => setNewEducation({...newEducation, description: e.target.value})}
-                    rows={2}
-                    placeholder="GPA, โครงงาน, หรือรายละเอียดอื่นๆ"
-                    className="w-full input-field"
-                  />
-                </div>
-
+              {/* Add Button - Always at the bottom */}
+              {!showEducationForm && (
                 <button
                   type="button"
-                  onClick={addEducation}
-                  className="w-full bg-primary-100 text-primary-700 py-2 rounded-lg hover:bg-primary-200 font-medium"
+                  onClick={() => setShowEducationForm(true)}
+                  className="w-full border-2 border-dashed border-gray-300 rounded-lg py-4 text-gray-600 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50 font-medium transition-all flex items-center justify-center gap-2"
                 >
-                  + เพิ่มการศึกษา
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  เพิ่มการศึกษา
                 </button>
-              </div>
+              )}
             </div>
           )}
 
@@ -685,29 +972,38 @@ const ExpertProfile = () => {
           {currentStep === 3 && (
             <div className="bg-white rounded-lg shadow p-6 space-y-6">
               <h2 className="text-xl font-bold text-gray-900">ประสบการณ์การทำงาน</h2>
+              <p className="text-gray-600">เพิ่มประวัติการทำงานและประสบการณ์ของคุณ</p>
 
               {/* Existing Experience List */}
               {profile.experience.length > 0 && (
-                <div className="space-y-4">
+                <div className="space-y-3 mb-4">
                   {profile.experience.map((exp) => (
-                    <div key={exp.id} className="border rounded-lg p-4 bg-gray-50">
+                    <div key={exp.id} className="border-l-4 border-green-500 bg-gray-50 rounded-r-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">{exp.position}</h3>
-                          <p className="text-gray-700">{exp.company}</p>
-                          <p className="text-sm text-gray-500">
-                            {exp.startDate} - {exp.isCurrent ? 'ปัจจุบัน' : exp.endDate}
+                          <h3 className="font-bold text-gray-900 text-lg">{exp.position}</h3>
+                          <p className="text-gray-700 font-medium">{exp.company}</p>
+                          <p className="text-sm text-gray-500 mt-1">
+                            <span className="inline-flex items-center">
+                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              {exp.startDate} - {exp.isCurrent ? 'ปัจจุบัน' : exp.endDate}
+                            </span>
                           </p>
                           {exp.description && (
-                            <p className="text-sm text-gray-600 mt-2 whitespace-pre-line">{exp.description}</p>
+                            <p className="text-sm text-gray-600 mt-2 pl-3 border-l-2 border-gray-300 whitespace-pre-line">{exp.description}</p>
                           )}
                         </div>
                         <button
                           type="button"
                           onClick={() => removeExperience(exp.id)}
-                          className="text-red-600 hover:text-red-800 ml-4"
+                          className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          title="ลบ"
                         >
-                          ลบ
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -716,95 +1012,165 @@ const ExpertProfile = () => {
               )}
 
               {/* Add New Experience Form */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 space-y-4">
-                <h3 className="font-semibold text-gray-900">เพิ่มประสบการณ์การทำงาน</h3>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      บริษัท *
-                    </label>
+              {showExperienceForm && (
+                <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-semibold text-gray-900 text-lg">เพิ่มประสบการณ์การทำงาน</h3>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowExperienceForm(false);
+                        setNewExperience({
+                          company: '',
+                          position: '',
+                          startDate: '',
+                          endDate: '',
+                          description: '',
+                          isCurrent: false
+                        });
+                      }}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        บริษัท <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={newExperience.company}
+                        onChange={(e) => setNewExperience({...newExperience, company: e.target.value})}
+                        placeholder="เช่น: LINE Thailand, Google"
+                        className="w-full input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        ตำแหน่ง <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={newExperience.position}
+                        onChange={(e) => setNewExperience({...newExperience, position: e.target.value})}
+                        placeholder="เช่น: CTO, Senior Developer"
+                        className="w-full input-field"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        วันที่เริ่ม
+                      </label>
+                      <input
+                        type="month"
+                        value={newExperience.startDate}
+                        onChange={(e) => setNewExperience({...newExperience, startDate: e.target.value})}
+                        className="w-full input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        วันที่สิ้นสุด
+                      </label>
+                      <input
+                        type="month"
+                        value={newExperience.endDate}
+                        onChange={(e) => setNewExperience({...newExperience, endDate: e.target.value})}
+                        disabled={newExperience.isCurrent}
+                        className="w-full input-field disabled:bg-gray-100 disabled:cursor-not-allowed"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center">
                     <input
-                      type="text"
-                      value={newExperience.company}
-                      onChange={(e) => setNewExperience({...newExperience, company: e.target.value})}
-                      placeholder="เช่น: LINE Thailand"
-                      className="w-full input-field"
+                      type="checkbox"
+                      checked={newExperience.isCurrent}
+                      onChange={(e) => setNewExperience({...newExperience, isCurrent: e.target.checked})}
+                      className="mr-2 w-4 h-4 text-primary-600 rounded"
                     />
+                    <label className="text-sm text-gray-700 font-medium">ยังทำงานอยู่ที่นี่</label>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ตำแหน่ง *
+                      จุดเน้นที่สามารถถ่ายทอด / ทักษะที่เชี่ยวชาญ
                     </label>
-                    <input
-                      type="text"
-                      value={newExperience.position}
-                      onChange={(e) => setNewExperience({...newExperience, position: e.target.value})}
-                      placeholder="เช่น: Chief Technology Officer"
+                    <textarea
+                      value={newExperience.keyResponsibilities}
+                      onChange={(e) => setNewExperience({...newExperience, keyResponsibilities: e.target.value})}
+                      rows={3}
+                      placeholder="เช่น: Strategic Planning, Digital Transformation, Team Leadership..."
                       className="w-full input-field"
                     />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      วันที่เริ่ม
-                    </label>
-                    <input
-                      type="month"
-                      value={newExperience.startDate}
-                      onChange={(e) => setNewExperience({...newExperience, startDate: e.target.value})}
-                      className="w-full input-field"
-                    />
+                    <p className="text-xs text-gray-500 mt-1">จุดเน้นทักษะที่สามารถถ่ายทอดให้ผู้รุ่นต่อ (จากแบบฟอร์ม Talenter)</p>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      วันที่สิ้นสุด
+                      รายละเอียดงาน
                     </label>
-                    <input
-                      type="month"
-                      value={newExperience.endDate}
-                      onChange={(e) => setNewExperience({...newExperience, endDate: e.target.value})}
-                      disabled={newExperience.isCurrent}
+                    <textarea
+                      value={newExperience.description}
+                      onChange={(e) => setNewExperience({...newExperience, description: e.target.value})}
+                      rows={4}
+                      placeholder="บรรยายหน้าที่ความรับผิดชอบ ผลงาน และความสำเร็จที่เกิดขึ้น..."
                       className="w-full input-field"
                     />
                   </div>
-                </div>
 
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={newExperience.isCurrent}
-                    onChange={(e) => setNewExperience({...newExperience, isCurrent: e.target.checked})}
-                    className="mr-2"
-                  />
-                  <label className="text-sm text-gray-700">ยังทำงานอยู่ที่นี่</label>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={addExperience}
+                      className="flex-1 bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 font-medium transition-colors"
+                    >
+                      ✓ บันทึก
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowExperienceForm(false);
+                        setNewExperience({
+                          company: '',
+                          position: '',
+                          startDate: '',
+                          endDate: '',
+                          description: '',
+                          isCurrent: false
+                        });
+                      }}
+                      className="px-6 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 font-medium transition-colors"
+                    >
+                      ยกเลิก
+                    </button>
+                  </div>
                 </div>
+              )}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    รายละเอียดงาน
-                  </label>
-                  <textarea
-                    value={newExperience.description}
-                    onChange={(e) => setNewExperience({...newExperience, description: e.target.value})}
-                    rows={4}
-                    placeholder="บรรยายหน้าที่ความรับผิดชอบ ผลงาน และความสำเร็จที่เกิดขึ้น..."
-                    className="w-full input-field"
-                  />
-                </div>
-
+              {/* Add Button - Always at the bottom */}
+              {!showExperienceForm && (
                 <button
                   type="button"
-                  onClick={addExperience}
-                  className="w-full bg-primary-100 text-primary-700 py-2 rounded-lg hover:bg-primary-200 font-medium"
+                  onClick={() => setShowExperienceForm(true)}
+                  className="w-full border-2 border-dashed border-gray-300 rounded-lg py-4 text-gray-600 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50 font-medium transition-all flex items-center justify-center gap-2"
                 >
-                  + เพิ่มประสบการณ์
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  เพิ่มประสบการณ์การทำงาน
                 </button>
-              </div>
+              )}
             </div>
           )}
 
@@ -812,29 +1178,32 @@ const ExpertProfile = () => {
           {currentStep === 4 && (
             <div className="bg-white rounded-lg shadow p-6 space-y-6">
               <h2 className="text-xl font-bold text-gray-900">ทักษะและความเชี่ยวชาญ</h2>
+              <p className="text-gray-600">เพิ่มทักษะที่คุณมีความเชี่ยวชาญ</p>
 
               {/* Existing Skills */}
               {profile.skills.length > 0 && (
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 mb-4">
                   {profile.skills.map((skill) => (
                     <div
                       key={skill.id}
-                      className="flex items-center bg-primary-100 text-primary-800 px-4 py-2 rounded-full"
+                      className="group relative flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all"
                     >
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="mx-2 text-primary-600">•</span>
-                      <span className="text-sm">
-                        {skill.proficiencyLevel === 'BEGINNER' && 'เริ่มต้น'}
-                        {skill.proficiencyLevel === 'INTERMEDIATE' && 'ปานกลาง'}
-                        {skill.proficiencyLevel === 'ADVANCED' && 'ขั้นสูง'}
-                        {skill.proficiencyLevel === 'EXPERT' && 'ผู้เชี่ยวชาญ'}
+                      <span className="font-semibold mr-2">{skill.name}</span>
+                      <span className="text-white/80 text-sm">
+                        {skill.proficiencyLevel === 'BEGINNER' && '🌱 เริ่มต้น'}
+                        {skill.proficiencyLevel === 'INTERMEDIATE' && '⭐ ปานกลาง'}
+                        {skill.proficiencyLevel === 'ADVANCED' && '🔥 ขั้นสูง'}
+                        {skill.proficiencyLevel === 'EXPERT' && '👑 ผู้เชี่ยวชาญ'}
                       </span>
                       <button
                         type="button"
                         onClick={() => removeSkill(skill.id)}
-                        className="ml-3 text-primary-600 hover:text-primary-800"
+                        className="ml-3 text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                        title="ลบ"
                       >
-                        ×
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                       </button>
                     </div>
                   ))}
@@ -842,65 +1211,115 @@ const ExpertProfile = () => {
               )}
 
               {/* Add New Skill Form */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 space-y-4">
-                <h3 className="font-semibold text-gray-900">เพิ่มทักษะใหม่</h3>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    ชื่อทักษะ *
-                  </label>
-                  <input
-                    type="text"
-                    value={newSkill.name}
-                    onChange={(e) => setNewSkill({...newSkill, name: e.target.value})}
-                    placeholder="เช่น: Digital Marketing, Machine Learning, Cloud Computing"
-                    className="w-full input-field"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
+              {showSkillForm && (
+                <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-6 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-semibold text-gray-900 text-lg">เพิ่มทักษะใหม่</h3>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowSkillForm(false);
+                        setNewSkill({
+                          name: '',
+                          category: 'TECHNICAL',
+                          proficiencyLevel: 'INTERMEDIATE'
+                        });
+                      }}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      หมวดหมู่
+                      ชื่อทักษะ <span className="text-red-500">*</span>
                     </label>
-                    <select
-                      value={newSkill.category}
-                      onChange={(e) => setNewSkill({...newSkill, category: e.target.value})}
+                    <input
+                      type="text"
+                      value={newSkill.name}
+                      onChange={(e) => setNewSkill({...newSkill, name: e.target.value})}
+                      placeholder="เช่น: Digital Marketing, Machine Learning, Cloud Computing"
                       className="w-full input-field"
-                    >
-                      <option value="TECHNICAL">เทคนิค</option>
-                      <option value="BUSINESS">ธุรกิจ</option>
-                      <option value="CREATIVE">สร้างสรรค์</option>
-                      <option value="LEADERSHIP">ภาวะผู้นำ</option>
-                      <option value="COMMUNICATION">การสื่อสาร</option>
-                    </select>
+                    />
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ระดับความชำนาญ
-                    </label>
-                    <select
-                      value={newSkill.proficiencyLevel}
-                      onChange={(e) => setNewSkill({...newSkill, proficiencyLevel: e.target.value})}
-                      className="w-full input-field"
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        หมวดหมู่
+                      </label>
+                      <select
+                        value={newSkill.category}
+                        onChange={(e) => setNewSkill({...newSkill, category: e.target.value})}
+                        className="w-full input-field"
+                      >
+                        <option value="TECHNICAL">🔧 เทคนิค</option>
+                        <option value="SOFT_SKILL">👥 ทักษะด้านบุคคล</option>
+                        <option value="DOMAIN_KNOWLEDGE">📚 ความรู้เฉพาะด้าน</option>
+                        <option value="TOOL">🛠️ เครื่องมือ</option>
+                        <option value="LANGUAGE">🌐 ภาษา</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        ระดับความชำนาญ
+                      </label>
+                      <select
+                        value={newSkill.proficiencyLevel}
+                        onChange={(e) => setNewSkill({...newSkill, proficiencyLevel: e.target.value})}
+                        className="w-full input-field"
+                      >
+                        <option value="BEGINNER">🌱 เริ่มต้น</option>
+                        <option value="INTERMEDIATE">⭐ ปานกลาง</option>
+                        <option value="ADVANCED">🔥 ขั้นสูง</option>
+                        <option value="EXPERT">👑 ผู้เชี่ยวชาญ</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={addSkill}
+                      className="flex-1 bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 font-medium transition-colors"
                     >
-                      <option value="BEGINNER">เริ่มต้น</option>
-                      <option value="INTERMEDIATE">ปานกลาง</option>
-                      <option value="ADVANCED">ขั้นสูง</option>
-                      <option value="EXPERT">ผู้เชี่ยวชาญ</option>
-                    </select>
+                      ✓ บันทึก
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowSkillForm(false);
+                        setNewSkill({
+                          name: '',
+                          category: 'TECHNICAL',
+                          proficiencyLevel: 'INTERMEDIATE'
+                        });
+                      }}
+                      className="px-6 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 font-medium transition-colors"
+                    >
+                      ยกเลิก
+                    </button>
                   </div>
                 </div>
+              )}
 
+              {/* Add Button - Always at the bottom */}
+              {!showSkillForm && (
                 <button
                   type="button"
-                  onClick={addSkill}
-                  className="w-full bg-primary-100 text-primary-700 py-2 rounded-lg hover:bg-primary-200 font-medium"
+                  onClick={() => setShowSkillForm(true)}
+                  className="w-full border-2 border-dashed border-gray-300 rounded-lg py-4 text-gray-600 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50 font-medium transition-all flex items-center justify-center gap-2"
                 >
-                  + เพิ่มทักษะ
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  เพิ่มทักษะ
                 </button>
-              </div>
+              )}
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <p className="text-sm text-blue-800">
@@ -914,31 +1333,45 @@ const ExpertProfile = () => {
           {currentStep === 5 && (
             <div className="bg-white rounded-lg shadow p-6 space-y-6">
               <h2 className="text-xl font-bold text-gray-900">ผลงานและรางวัล</h2>
+              <p className="text-gray-600">เพิ่มผลงาน รางวัล หรือความสำเร็จที่โดดเด่นของคุณ</p>
 
               {/* Existing Achievements */}
               {profile.achievements.length > 0 && (
-                <div className="space-y-4">
+                <div className="space-y-3 mb-4">
                   {profile.achievements.map((achievement) => (
-                    <div key={achievement.id} className="border rounded-lg p-4 bg-gray-50">
+                    <div key={achievement.id} className="border-l-4 border-yellow-500 bg-gray-50 rounded-r-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">{achievement.title}</h3>
+                          <h3 className="font-bold text-gray-900 text-lg flex items-center gap-2">
+                            <span className="text-2xl">🏆</span>
+                            {achievement.title}
+                          </h3>
                           {achievement.organization && (
-                            <p className="text-gray-700">{achievement.organization}</p>
+                            <p className="text-gray-700 font-medium mt-1">{achievement.organization}</p>
                           )}
                           {achievement.date && (
-                            <p className="text-sm text-gray-500">{achievement.date}</p>
+                            <p className="text-sm text-gray-500 mt-1">
+                              <span className="inline-flex items-center">
+                                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                {achievement.date}
+                              </span>
+                            </p>
                           )}
                           {achievement.description && (
-                            <p className="text-sm text-gray-600 mt-2">{achievement.description}</p>
+                            <p className="text-sm text-gray-600 mt-2 pl-3 border-l-2 border-gray-300">{achievement.description}</p>
                           )}
                         </div>
                         <button
                           type="button"
                           onClick={() => removeAchievement(achievement.id)}
-                          className="text-red-600 hover:text-red-800 ml-4"
+                          className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          title="ลบ"
                         >
-                          ลบ
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -947,70 +1380,122 @@ const ExpertProfile = () => {
               )}
 
               {/* Add New Achievement Form */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 space-y-4">
-                <h3 className="font-semibold text-gray-900">เพิ่มผลงาน/รางวัล</h3>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    ชื่อผลงาน/รางวัล *
-                  </label>
-                  <input
-                    type="text"
-                    value={newAchievement.title}
-                    onChange={(e) => setNewAchievement({...newAchievement, title: e.target.value})}
-                    placeholder="เช่น: รางวัล Innovation Award 2023"
-                    className="w-full input-field"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
+              {showAchievementForm && (
+                <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-6 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-semibold text-gray-900 text-lg">เพิ่มผลงาน/รางวัล</h3>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAchievementForm(false);
+                        setNewAchievement({
+                          title: '',
+                          description: '',
+                          date: '',
+                          organization: ''
+                        });
+                      }}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      องค์กรผู้มอบ
+                      ชื่อผลงาน/รางวัล <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
-                      value={newAchievement.organization}
-                      onChange={(e) => setNewAchievement({...newAchievement, organization: e.target.value})}
-                      placeholder="เช่น: สภาอุตสาหกรรมแห่งประเทศไทย"
+                      value={newAchievement.title}
+                      onChange={(e) => setNewAchievement({...newAchievement, title: e.target.value})}
+                      placeholder="เช่น: รางวัล Innovation Award 2023"
                       className="w-full input-field"
                     />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        องค์กรผู้มอบ
+                      </label>
+                      <input
+                        type="text"
+                        value={newAchievement.organization}
+                        onChange={(e) => setNewAchievement({...newAchievement, organization: e.target.value})}
+                        placeholder="เช่น: สภาอุตสาหกรรมแห่งประเทศไทย"
+                        className="w-full input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        วันที่
+                      </label>
+                      <input
+                        type="month"
+                        value={newAchievement.date}
+                        onChange={(e) => setNewAchievement({...newAchievement, date: e.target.value})}
+                        className="w-full input-field"
+                      />
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      วันที่
+                      รายละเอียด
                     </label>
-                    <input
-                      type="month"
-                      value={newAchievement.date}
-                      onChange={(e) => setNewAchievement({...newAchievement, date: e.target.value})}
+                    <textarea
+                      value={newAchievement.description}
+                      onChange={(e) => setNewAchievement({...newAchievement, description: e.target.value})}
+                      rows={3}
+                      placeholder="บรรยายผลงานหรือรางวัลนี้..."
                       className="w-full input-field"
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    รายละเอียด
-                  </label>
-                  <textarea
-                    value={newAchievement.description}
-                    onChange={(e) => setNewAchievement({...newAchievement, description: e.target.value})}
-                    rows={3}
-                    placeholder="บรรยายผลงานหรือรางวัลนี้..."
-                    className="w-full input-field"
-                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={addAchievement}
+                      className="flex-1 bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 font-medium transition-colors"
+                    >
+                      ✓ บันทึก
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAchievementForm(false);
+                        setNewAchievement({
+                          title: '',
+                          description: '',
+                          date: '',
+                          organization: ''
+                        });
+                      }}
+                      className="px-6 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 font-medium transition-colors"
+                    >
+                      ยกเลิก
+                    </button>
+                  </div>
                 </div>
+              )}
 
+              {/* Add Button - Always at the bottom */}
+              {!showAchievementForm && (
                 <button
                   type="button"
-                  onClick={addAchievement}
-                  className="w-full bg-primary-100 text-primary-700 py-2 rounded-lg hover:bg-primary-200 font-medium"
+                  onClick={() => setShowAchievementForm(true)}
+                  className="w-full border-2 border-dashed border-gray-300 rounded-lg py-4 text-gray-600 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50 font-medium transition-all flex items-center justify-center gap-2"
                 >
-                  + เพิ่มผลงาน
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  เพิ่มผลงาน/รางวัล
                 </button>
-              </div>
+              )}
 
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                 <p className="text-sm text-green-800">

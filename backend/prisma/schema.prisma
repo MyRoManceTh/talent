@@ -51,6 +51,14 @@ model Expert {
   hourlyRate        Decimal?           @db.Decimal(10, 2)
   availability      AvailabilityStatus @default(AVAILABLE)
 
+  // Talenter Fields
+  dateOfBirth     DateTime?
+  currentCompany  String?
+  currentPosition String?
+  workStatus      WorkStatus?        @default(WORKING)
+  contactPhone    String?
+  missionInterests String[] @default([])
+
   // Location
   country  String?
   city     String?
@@ -92,6 +100,14 @@ enum WorkMode {
   HYBRID
 }
 
+enum WorkStatus {
+  WORKING         // ปฏิบัติงานอยู่
+  RETIRED         // เกษียณ
+  LOOKING         // กำลังหางาน
+  FREELANCE       // ฟรีแลนซ์
+  OTHER           // อื่นๆ
+}
+
 // Education History
 model Education {
   id       String @id @default(uuid())
@@ -127,6 +143,7 @@ model WorkExperience {
   isCurrent    Boolean   @default(false)
   description  String?
   achievements String?
+  keyResponsibilities String? // จุดเน้นที่สามารถถ่ายทอด/ทักษะที่เชี่ยวชาญ
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -214,11 +231,12 @@ model Achievement {
   expertId String
   expert   Expert @relation(fields: [expertId], references: [id], onDelete: Cascade)
 
-  title       String
-  description String
-  date        DateTime?
-  url         String?
-  images      String[]
+  title        String
+  organization String? // องค์กร
+  description  String?
+  date         DateTime?
+  url          String?
+  images       String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

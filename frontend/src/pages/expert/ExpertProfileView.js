@@ -145,6 +145,60 @@ const ExpertProfileView = () => {
                 <span>เกี่ยวกับ</span>
               </h3>
               <p className="text-gray-700 whitespace-pre-line leading-relaxed">{profile.bio}</p>
+              
+              {/* Talenter Additional Info */}
+              {(profile.currentCompany || profile.currentPosition || profile.workStatus || profile.dateOfBirth || profile.contactPhone) && (
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                  <h4 className="font-semibold text-gray-900 mb-3">ข้อมูลเพิ่มเติม</h4>
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    {profile.currentCompany && (
+                      <div>
+                        <span className="text-gray-600">องค์กรปัจจุบัน:</span>
+                        <span className="ml-2 font-medium text-gray-900">{profile.currentCompany}</span>
+                      </div>
+                    )}
+                    {profile.currentPosition && (
+                      <div>
+                        <span className="text-gray-600">ตำแหน่งปัจจุบัน:</span>
+                        <span className="ml-2 font-medium text-gray-900">{profile.currentPosition}</span>
+                      </div>
+                    )}
+                    {profile.workStatus && (
+                      <div>
+                        <span className="text-gray-600">สถานะการทำงาน:</span>
+                        <span className="ml-2 font-medium text-gray-900">
+                          {profile.workStatus === 'WORKING' && 'ปฏิบัติงานอยู่'}
+                          {profile.workStatus === 'RETIRED' && 'เกษียณ'}
+                          {profile.workStatus === 'LOOKING' && 'กำลังหางาน'}
+                          {profile.workStatus === 'FREELANCE' && 'ฟรีแลนซ์'}
+                          {profile.workStatus === 'OTHER' && 'อื่นๆ'}
+                        </span>
+                      </div>
+                    )}
+                    {profile.contactPhone && (
+                      <div>
+                        <span className="text-gray-600">เบอร์ติดต่อ:</span>
+                        <span className="ml-2 font-medium text-gray-900">{profile.contactPhone}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              {/* Mission Interests */}
+              {profile.missionInterests && profile.missionInterests.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">ภารกิจที่สนใจ:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {profile.missionInterests.map((interest, idx) => (
+                      <span key={idx} className="bg-primary-100 text-primary-800 text-sm px-3 py-1 rounded-full">
+                        {interest}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               {profile.linkedinUrl && (
                 <a
                   href={profile.linkedinUrl}
@@ -159,22 +213,28 @@ const ExpertProfileView = () => {
             </div>
 
             {/* Experience */}
-            {profile.experience && profile.experience.length > 0 && (
+            {((profile.experience && profile.experience.length > 0) || (profile.workExperiences && profile.workExperiences.length > 0)) && (
               <div className="mb-8 pb-8 border-b">
                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <span>💼</span>
                   <span>ประสบการณ์การทำงาน</span>
                 </h3>
                 <div className="space-y-6">
-                  {profile.experience.map((exp, idx) => (
+                  {(profile.experience || profile.workExperiences || []).map((exp, idx) => (
                     <div key={idx} className="relative pl-8 pb-6 border-l-2 border-primary-200 last:border-l-0 last:pb-0">
                       <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-600 border-4 border-white"></div>
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900">{exp.position}</h4>
+                        <h4 className="text-lg font-semibold text-gray-900">{exp.position || exp.title}</h4>
                         <p className="text-primary-600 font-medium">{exp.company}</p>
                         <p className="text-sm text-gray-500 mt-1">
-                          {exp.startDate} - {exp.isCurrent ? 'ปัจจุบัน' : exp.endDate}
+                          {exp.startDate instanceof Date ? exp.startDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'short' }) : exp.startDate} - {exp.isCurrent ? 'ปัจจุบัน' : (exp.endDate instanceof Date ? exp.endDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'short' }) : exp.endDate)}
                         </p>
+                        {exp.keyResponsibilities && (
+                          <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p className="text-xs font-semibold text-green-800 mb-1">🎯 จุดเน้นที่สามารถถ่ายทอด / ทักษะที่เชี่ยวชาญ:</p>
+                            <p className="text-sm text-gray-700 whitespace-pre-line">{exp.keyResponsibilities}</p>
+                          </div>
+                        )}
                         {exp.description && (
                           <p className="text-gray-700 mt-3 whitespace-pre-line">{exp.description}</p>
                         )}
@@ -220,20 +280,26 @@ const ExpertProfileView = () => {
                   <span>ทักษะและความเชี่ยวชาญ</span>
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                  {profile.skills.map((skill, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-primary-100 text-primary-800 px-4 py-2 rounded-full flex items-center gap-2"
-                    >
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="text-xs bg-primary-200 px-2 py-0.5 rounded-full">
-                        {skill.proficiencyLevel === 'BEGINNER' && 'เริ่มต้น'}
-                        {skill.proficiencyLevel === 'INTERMEDIATE' && 'ปานกลาง'}
-                        {skill.proficiencyLevel === 'ADVANCED' && 'ขั้นสูง'}
-                        {skill.proficiencyLevel === 'EXPERT' && 'ผู้เชี่ยวชาญ'}
-                      </span>
-                    </div>
-                  ))}
+                  {profile.skills.map((skill, idx) => {
+                    // Support both formats: direct skill object or nested skill.skill
+                    const skillName = skill.name || skill.skill?.name || '';
+                    const proficiency = skill.proficiencyLevel || skill.proficiency || 'INTERMEDIATE';
+                    
+                    return (
+                      <div
+                        key={idx}
+                        className="bg-primary-100 text-primary-800 px-4 py-2 rounded-full flex items-center gap-2"
+                      >
+                        <span className="font-medium">{skillName}</span>
+                        <span className="text-xs bg-primary-200 px-2 py-0.5 rounded-full">
+                          {proficiency === 'BEGINNER' && '🌱 เริ่มต้น'}
+                          {proficiency === 'INTERMEDIATE' && '⭐ ปานกลาง'}
+                          {proficiency === 'ADVANCED' && '🔥 ขั้นสูง'}
+                          {proficiency === 'EXPERT' && '👑 ผู้เชี่ยวชาญ'}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -305,8 +371,8 @@ const ExpertProfileView = () => {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">ประสบการณ์การทำงาน</span>
-              <span className={`text-sm font-medium ${profile.experience?.length > 0 ? 'text-green-600' : 'text-gray-400'}`}>
-                {profile.experience?.length > 0 ? `✅ ${profile.experience.length} รายการ` : '⚠️ ยังไม่มีข้อมูล'}
+              <span className={`text-sm font-medium ${(profile.experience?.length > 0 || profile.workExperiences?.length > 0) ? 'text-green-600' : 'text-gray-400'}`}>
+                {(profile.experience?.length > 0 || profile.workExperiences?.length > 0) ? `✅ ${(profile.experience || profile.workExperiences || []).length} รายการ` : '⚠️ ยังไม่มีข้อมูล'}
               </span>
             </div>
             <div className="flex items-center justify-between">

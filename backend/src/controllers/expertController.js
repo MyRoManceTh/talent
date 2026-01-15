@@ -50,9 +50,36 @@ const getExpertProfile = async (req, res, next) => {
       });
     }
 
+    // Transform the response to match frontend expectations
+    const transformedExpert = {
+      ...expert,
+      education: expert.educations || [],
+      experience: (expert.workExperiences || []).map(exp => ({
+        position: exp.title,
+        company: exp.company,
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        isCurrent: exp.isCurrent,
+        description: exp.description,
+        keyResponsibilities: exp.keyResponsibilities,
+        industry: exp.industry,
+        location: exp.location,
+        achievements: exp.achievements,
+      })),
+      skills: (expert.skills || []).map(s => ({
+        name: s.skill?.name || '',
+        category: s.skill?.category || 'TECHNICAL',
+        proficiencyLevel: s.proficiency,
+        yearsOfExp: s.yearsOfExp,
+      })),
+      // Keep original arrays for compatibility
+      educations: expert.educations,
+      workExperiences: expert.workExperiences,
+    };
+
     res.json({
       success: true,
-      data: expert,
+      data: transformedExpert,
     });
   } catch (error) {
     next(error);
@@ -77,6 +104,14 @@ const updateExpertProfile = async (req, res, next) => {
       timezone,
       preferredMode,
       languages,
+      // Talenter fields
+      dateOfBirth,
+      currentCompany,
+      currentPosition,
+      workStatus,
+      contactPhone,
+      missionInterests,
+      // Relations
       education,
       experience,
       skills,
@@ -116,6 +151,13 @@ const updateExpertProfile = async (req, res, next) => {
         timezone,
         preferredMode,
         languages,
+        // Talenter fields
+        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+        currentCompany,
+        currentPosition,
+        workStatus,
+        contactPhone,
+        missionInterests: missionInterests || [],
       },
     });
 
@@ -168,6 +210,7 @@ const updateExpertProfile = async (req, res, next) => {
             isCurrent: exp.isCurrent || false,
             description: exp.description || null,
             achievements: exp.achievements || null,
+            keyResponsibilities: exp.keyResponsibilities || null,
           })),
         });
       }
@@ -270,10 +313,37 @@ const updateExpertProfile = async (req, res, next) => {
 
     logger.info('Expert profile updated (full)', { expertId: expert.id });
 
+    // Transform the response to match frontend expectations
+    const transformedExpert = {
+      ...updatedExpert,
+      education: updatedExpert.educations || [],
+      experience: (updatedExpert.workExperiences || []).map(exp => ({
+        position: exp.title,
+        company: exp.company,
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        isCurrent: exp.isCurrent,
+        description: exp.description,
+        keyResponsibilities: exp.keyResponsibilities,
+        industry: exp.industry,
+        location: exp.location,
+        achievements: exp.achievements,
+      })),
+      skills: (updatedExpert.skills || []).map(s => ({
+        name: s.skill?.name || '',
+        category: s.skill?.category || 'TECHNICAL',
+        proficiencyLevel: s.proficiency,
+        yearsOfExp: s.yearsOfExp,
+      })),
+      // Keep original arrays for compatibility
+      educations: updatedExpert.educations,
+      workExperiences: updatedExpert.workExperiences,
+    };
+
     res.json({
       success: true,
       message: 'Expert profile updated successfully',
-      data: updatedExpert,
+      data: transformedExpert,
     });
   } catch (error) {
     logger.error('Error updating expert profile:', error);
