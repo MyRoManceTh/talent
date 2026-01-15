@@ -17,6 +17,7 @@ import ExpertsShowcase from './pages/ExpertsShowcase';
 import ExpertDetailPage from './pages/ExpertDetailPage';
 import ExpertDashboard from './pages/expert/ExpertDashboard';
 import ExpertProfile from './pages/expert/ExpertProfile';
+import ExpertProfileView from './pages/expert/ExpertProfileView';
 import ExpertConsultations from './pages/expert/ExpertConsultations';
 import SeekerDashboard from './pages/seeker/SeekerDashboard';
 import SeekerProfile from './pages/seeker/SeekerProfile';
@@ -64,6 +65,14 @@ function App() {
             />
             <Route
               path="/expert/profile"
+              element={
+                <PrivateRoute role="EXPERT">
+                  <ExpertProfileView />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/expert/profile/edit"
               element={
                 <PrivateRoute role="EXPERT">
                   <ExpertProfile />
