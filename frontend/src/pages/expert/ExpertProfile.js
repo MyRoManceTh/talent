@@ -220,9 +220,20 @@ const ExpertProfile = () => {
         timezone: profile.timezone || null,
         preferredMode: profile.preferredMode.length > 0 ? profile.preferredMode : [],
         languages: profile.languages.length > 0 ? profile.languages : [],
+        
+        // Include education, experience, skills, and achievements
+        education: profile.education || [],
+        experience: profile.experience || [],
+        skills: profile.skills || [],
+        achievements: profile.achievements || []
       };
 
-      console.log('Sending profile data:', profileData);
+      console.log('Sending complete profile data:', profileData);
+      console.log('Education items:', profile.education.length);
+      console.log('Experience items:', profile.experience.length);
+      console.log('Skills items:', profile.skills.length);
+      console.log('Achievements items:', profile.achievements.length);
+      
       await expertService.updateProfile(profileData);
       toast.success('บันทึกโปรไฟล์สำเร็จ!');
       navigate('/expert/dashboard');
