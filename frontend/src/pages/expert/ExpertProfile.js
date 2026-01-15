@@ -49,6 +49,10 @@ const ExpertProfile = () => {
   const [showSkillForm, setShowSkillForm] = useState(false);
   const [showAchievementForm, setShowAchievementForm] = useState(false);
 
+  // Mission Interest "Other" state
+  const [otherMissionInterest, setOtherMissionInterest] = useState('');
+  const [showOtherMissionInput, setShowOtherMissionInput] = useState(false);
+
   // Temporary states for adding new items
   const [newEducation, setNewEducation] = useState({
     institution: '',
@@ -98,6 +102,14 @@ const ExpertProfile = () => {
           skills: response.data.skills || [],
           achievements: response.data.achievements || []
         }));
+        
+        // Check if there are any "other" mission interests
+        const missionInterests = response.data.missionInterests || [];
+        const otherInterest = missionInterests.find(i => i.startsWith('อื่นๆ:'));
+        if (otherInterest) {
+          setShowOtherMissionInput(true);
+          setOtherMissionInterest(otherInterest.replace('อื่นๆ: ', ''));
+        }
       }
     } catch (error) {
       console.error('Failed to load profile:', error);
@@ -672,6 +684,67 @@ const ExpertProfile = () => {
                       />
                       <span className="text-gray-700">กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ</span>
                     </label>
+                    
+                    {/* อื่นๆ - Custom Input */}
+                    <div className="border-t pt-3 mt-3">
+                      <label className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={showOtherMissionInput}
+                          onChange={(e) => {
+                            setShowOtherMissionInput(e.target.checked);
+                            if (!e.target.checked) {
+                              // Remove all "other" interests when unchecking
+                              const predefinedInterests = [
+                                'กลุ่มพัฒนากำลังคน',
+                                'กลุ่มใช้ศักยภาพ วัยเกษียณ – วัยทำงาน',
+                                'กลุ่มพัฒนาเยาวชน',
+                                'กลุ่มสร้างเครือข่ายความร่วมมือ ภาคส่วนต่าง ๆ',
+                                'กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ'
+                              ];
+                              const filteredInterests = profile.missionInterests.filter(i => predefinedInterests.includes(i));
+                              handleProfileChange('missionInterests', filteredInterests);
+                              setOtherMissionInterest('');
+                            }
+                          }}
+                          className="mr-2"
+                        />
+                        <span className="text-gray-700 font-medium">อื่นๆ (โปรดระบุ)</span>
+                      </label>
+                      
+                      {showOtherMissionInput && (
+                        <div className="mt-3 ml-6">
+                          <input
+                            type="text"
+                            value={otherMissionInterest}
+                            onChange={(e) => setOtherMissionInterest(e.target.value)}
+                            onBlur={() => {
+                              if (otherMissionInterest.trim()) {
+                                const customInterest = `อื่นๆ: ${otherMissionInterest.trim()}`;
+                                // Remove old "other" interests first
+                                const predefinedInterests = [
+                                  'กลุ่มพัฒนากำลังคน',
+                                  'กลุ่มใช้ศักยภาพ วัยเกษียณ – วัยทำงาน',
+                                  'กลุ่มพัฒนาเยาวชน',
+                                  'กลุ่มสร้างเครือข่ายความร่วมมือ ภาคส่วนต่าง ๆ',
+                                  'กลุ่มการสื่อสาร และสร้างแรงบันดาลใจ'
+                                ];
+                                const filteredInterests = profile.missionInterests.filter(i => 
+                                  predefinedInterests.includes(i) || !i.startsWith('อื่นๆ:')
+                                );
+                                // Add new custom interest
+                                handleProfileChange('missionInterests', [...filteredInterests, customInterest]);
+                              }
+                            }}
+                            placeholder="ระบุภารกิจที่สนใจอื่นๆ..."
+                            className="w-full input-field"
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            กรอกข้อความแล้วคลิกที่นอกช่อง หรือกด Enter เพื่อบันทึก
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
