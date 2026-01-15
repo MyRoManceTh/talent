@@ -962,23 +962,27 @@ const ExpertProfile = () => {
               ← ย้อนกลับ
             </button>
 
-            {currentStep < totalSteps ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700"
-              >
-                ถัดไป →
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-400"
-              >
-                {loading ? 'กำลังบันทึก...' : '✓ บันทึกโปรไฟล์'}
-              </button>
-            )}
+            <div className="flex gap-3">
+              {currentStep < totalSteps && (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700"
+                >
+                  ถัดไป →
+                </button>
+              )}
+              
+              {currentStep === totalSteps && (
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-400"
+                >
+                  {loading ? 'กำลังบันทึก...' : '✓ บันทึกโปรไฟล์'}
+                </button>
+              )}
+            </div>
           </div>
         </form>
 
