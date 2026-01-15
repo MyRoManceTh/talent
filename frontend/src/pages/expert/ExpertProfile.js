@@ -18,9 +18,8 @@ const ExpertProfile = () => {
     yearsOfExperience: '',
     availability: 'AVAILABLE',
     linkedinUrl: '',
-    country: '',
     city: '',
-    timezone: '',
+    timezone: 'Asia/Bangkok',
     preferredMode: [],
     languages: [],
     
@@ -215,9 +214,8 @@ const ExpertProfile = () => {
         yearsOfExperience: profile.yearsOfExperience ? parseInt(profile.yearsOfExperience, 10) : null,
         hourlyRate: profile.hourlyRate ? parseFloat(profile.hourlyRate) : null,
         availability: profile.availability,
-        country: profile.country || null,
         city: profile.city || null,
-        timezone: profile.timezone || null,
+        timezone: 'Asia/Bangkok',
         preferredMode: profile.preferredMode.length > 0 ? profile.preferredMode : [],
         languages: profile.languages.length > 0 ? profile.languages : [],
         
@@ -444,30 +442,90 @@ const ExpertProfile = () => {
                 />
               </div>
 
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ประเทศ
+                    จังหวัด
                   </label>
-                  <input
-                    type="text"
-                    value={profile.country}
-                    onChange={(e) => handleProfileChange('country', e.target.value)}
-                    placeholder="เช่น: ไทย"
-                    className="w-full input-field"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    เมือง
-                  </label>
-                  <input
-                    type="text"
+                  <select
                     value={profile.city}
                     onChange={(e) => handleProfileChange('city', e.target.value)}
-                    placeholder="เช่น: กรุงเทพฯ"
                     className="w-full input-field"
-                  />
+                  >
+                    <option value="">เลือกจังหวัด</option>
+                    <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                    <option value="นนทบุรี">นนทบุรี</option>
+                    <option value="ปทุมธานี">ปทุมธานี</option>
+                    <option value="สมุทรปราการ">สมุทรปราการ</option>
+                    <option value="สมุทรสาคร">สมุทรสาคร</option>
+                    <option value="นครปฐม">นครปฐม</option>
+                    <option value="เชียงใหม่">เชียงใหม่</option>
+                    <option value="เชียงราย">เชียงราย</option>
+                    <option value="ขอนแก่น">ขอนแก่น</option>
+                    <option value="นครราชสีมา">นครราชสีมา</option>
+                    <option value="อุบลราชธานี">อุบลราชธานี</option>
+                    <option value="ภูเก็ต">ภูเก็ต</option>
+                    <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+                    <option value="สงขลา">สงขลา</option>
+                    <option value="ชลบุรี">ชลบุรี</option>
+                    <option value="ระยอง">ระยอง</option>
+                    <option value="กระบี่">กระบี่</option>
+                    <option value="กาญจนบุรี">กาญจนบุรี</option>
+                    <option value="กาฬสินธุ์">กาฬสินธุ์</option>
+                    <option value="กำแพงเพชร">กำแพงเพชร</option>
+                    <option value="ขอนแก่น">ขอนแก่น</option>
+                    <option value="จันทบุรี">จันทบุรี</option>
+                    <option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+                    <option value="ชัยนาท">ชัยนาท</option>
+                    <option value="ชัยภูมิ">ชัยภูมิ</option>
+                    <option value="ชุมพร">ชุมพร</option>
+                    <option value="ตรัง">ตรัง</option>
+                    <option value="ตราด">ตราด</option>
+                    <option value="ตาก">ตาก</option>
+                    <option value="นครนายก">นครนายก</option>
+                    <option value="นครพนม">นครพนม</option>
+                    <option value="นครสวรรค์">นครสวรรค์</option>
+                    <option value="นราธิวาส">นราธิวาส</option>
+                    <option value="น่าน">น่าน</option>
+                    <option value="บึงกาฬ">บึงกาฬ</option>
+                    <option value="บุรีรัมย์">บุรีรัมย์</option>
+                    <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+                    <option value="ปราจีนบุรี">ปราจีนบุรี</option>
+                    <option value="ปัตตานี">ปัตตานี</option>
+                    <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+                    <option value="พะเยา">พะเยา</option>
+                    <option value="พังงา">พังงา</option>
+                    <option value="พัทลุง">พัทลุง</option>
+                    <option value="พิจิตร">พิจิตร</option>
+                    <option value="พิษณุโลก">พิษณุโลก</option>
+                    <option value="เพชรบุรี">เพชรบุรี</option>
+                    <option value="เพชรบูรณ์">เพชรบูรณ์</option>
+                    <option value="แพร่">แพร่</option>
+                    <option value="ยะลา">ยะลา</option>
+                    <option value="ยโสธร">ยโสธร</option>
+                    <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+                    <option value="ระนอง">ระนอง</option>
+                    <option value="ราชบุรี">ราชบุรี</option>
+                    <option value="ลพบุรี">ลพบุรี</option>
+                    <option value="ลำปาง">ลำปาง</option>
+                    <option value="ลำพูน">ลำพูน</option>
+                    <option value="เลย">เลย</option>
+                    <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+                    <option value="สกลนคร">สกลนคร</option>
+                    <option value="สมุทรสงคราม">สมุทรสงคราม</option>
+                    <option value="สระแก้ว">สระแก้ว</option>
+                    <option value="สระบุรี">สระบุรี</option>
+                    <option value="สิงห์บุรี">สิงห์บุรี</option>
+                    <option value="สุโขทัย">สุโขทัย</option>
+                    <option value="สุพรรณบุรี">สุพรรณบุรี</option>
+                    <option value="หนองคาย">หนองคาย</option>
+                    <option value="หนองบัวลำภู">หนองบัวลำภู</option>
+                    <option value="อำนาจเจริญ">อำนาจเจริญ</option>
+                    <option value="อุดรธานี">อุดรธานี</option>
+                    <option value="อุตรดิตถ์">อุตรดิตถ์</option>
+                    <option value="อุทัยธานี">อุทัยธานี</option>
+                    <option value="อ่างทอง">อ่างทอง</option>
+                  </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -475,11 +533,11 @@ const ExpertProfile = () => {
                   </label>
                   <input
                     type="text"
-                    value={profile.timezone}
-                    onChange={(e) => handleProfileChange('timezone', e.target.value)}
-                    placeholder="เช่น: Asia/Bangkok"
-                    className="w-full input-field"
+                    value="Asia/Bangkok"
+                    disabled
+                    className="w-full input-field bg-gray-100 cursor-not-allowed"
                   />
+                  <p className="text-xs text-gray-500 mt-1">เวลามาตรฐานประเทศไทย</p>
                 </div>
               </div>
             </div>
