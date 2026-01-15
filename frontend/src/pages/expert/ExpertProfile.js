@@ -633,8 +633,10 @@ const ExpertProfile = () => {
                     <input
                       type="number"
                       value={newEducation.startYear}
-                      onChange={(e) => setNewEducation({...newEducation, startYear: e.target.value})}
+                      onChange={(e) => setNewEducation({...newEducation, startYear: e.target.value ? parseInt(e.target.value) : ''})}
                       placeholder="2010"
+                      min="1950"
+                      max="2030"
                       className="w-full input-field"
                     />
                   </div>
@@ -646,8 +648,10 @@ const ExpertProfile = () => {
                     <input
                       type="number"
                       value={newEducation.endYear}
-                      onChange={(e) => setNewEducation({...newEducation, endYear: e.target.value})}
+                      onChange={(e) => setNewEducation({...newEducation, endYear: e.target.value ? parseInt(e.target.value) : ''})}
                       placeholder="2014"
+                      min="1950"
+                      max="2030"
                       className="w-full input-field"
                     />
                   </div>
