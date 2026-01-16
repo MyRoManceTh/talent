@@ -50,9 +50,36 @@ const getExpertProfile = async (req, res, next) => {
       });
     }
 
+    // Transform the response to match frontend expectations
+    const transformedExpert = {
+      ...expert,
+      education: expert.educations || [],
+      experience: (expert.workExperiences || []).map(exp => ({
+        position: exp.title,
+        company: exp.company,
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        isCurrent: exp.isCurrent,
+        description: exp.description,
+        keyResponsibilities: exp.keyResponsibilities,
+        industry: exp.industry,
+        location: exp.location,
+        achievements: exp.achievements,
+      })),
+      skills: (expert.skills || []).map(s => ({
+        name: s.skill?.name || '',
+        category: s.skill?.category || 'TECHNICAL',
+        proficiencyLevel: s.proficiency,
+        yearsOfExp: s.yearsOfExp,
+      })),
+      // Keep original arrays for compatibility
+      educations: expert.educations,
+      workExperiences: expert.workExperiences,
+    };
+
     res.json({
       success: true,
-      data: expert,
+      data: transformedExpert,
     });
   } catch (error) {
     next(error);
@@ -77,8 +104,39 @@ const updateExpertProfile = async (req, res, next) => {
       timezone,
       preferredMode,
       languages,
+      // Talenter fields
+      dateOfBirth,
+      currentCompany,
+      currentPosition,
+      workStatus,
+      contactPhone,
+      missionInterests,
+      // Relations
+      education,
+      experience,
+      skills,
+      achievements,
     } = req.body;
 
+    // Get expert first
+    const existingExpert = await prisma.expert.findUnique({ 
+      where: { userId },
+      include: {
+        educations: true,
+        workExperiences: true,
+        skills: { include: { skill: true } },
+        achievements: true,
+      },
+    });
+
+    if (!existingExpert) {
+      return res.status(404).json({
+        success: false,
+        message: 'Expert profile not found',
+      });
+    }
+
+    // Update basic expert info
     const expert = await prisma.expert.update({
       where: { userId },
       data: {
@@ -93,7 +151,134 @@ const updateExpertProfile = async (req, res, next) => {
         timezone,
         preferredMode,
         languages,
+        // Talenter fields
+        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+        currentCompany,
+        currentPosition,
+        workStatus,
+        contactPhone,
+        missionInterests: missionInterests || [],
       },
+    });
+
+    // Handle education updates
+    if (education && Array.isArray(education)) {
+      // Delete existing educations
+      await prisma.education.deleteMany({
+        where: { expertId: expert.id },
+      });
+
+      // Create new educations with proper type conversion
+      if (education.length > 0) {
+        const educationData = education.map(edu => ({
+          expertId: expert.id,
+          institution: edu.institution,
+          degree: edu.degree,
+          fieldOfStudy: edu.fieldOfStudy || null,
+          // Convert to Int properly
+          startYear: edu.startYear ? parseInt(String(edu.startYear), 10) : null,
+          endYear: edu.endYear ? parseInt(String(edu.endYear), 10) : null,
+          description: edu.description || null,
+        }));
+        
+        console.log('Creating education with data:', educationData);
+        
+        await prisma.education.createMany({
+          data: educationData,
+        });
+      }
+    }
+
+    // Handle experience updates
+    if (experience && Array.isArray(experience)) {
+      // Delete existing experiences
+      await prisma.workExperience.deleteMany({
+        where: { expertId: expert.id },
+      });
+
+      // Create new experiences
+      if (experience.length > 0) {
+        await prisma.workExperience.createMany({
+          data: experience.map(exp => ({
+            expertId: expert.id,
+            title: exp.position || exp.title,
+            company: exp.company,
+            industry: exp.industry || null,
+            location: exp.location || null,
+            startDate: exp.startDate ? new Date(exp.startDate) : new Date(),
+            endDate: exp.endDate && !exp.isCurrent ? new Date(exp.endDate) : null,
+            isCurrent: exp.isCurrent || false,
+            description: exp.description || null,
+            achievements: exp.achievements || null,
+            keyResponsibilities: exp.keyResponsibilities || null,
+          })),
+        });
+      }
+    }
+
+    // Handle skills updates
+    if (skills && Array.isArray(skills)) {
+      // Delete existing expert skills
+      await prisma.expertSkill.deleteMany({
+        where: { expertId: expert.id },
+      });
+
+      // Create new skills
+      for (const skillData of skills) {
+        if (skillData.name) {
+          // Find or create skill
+          let skill = await prisma.skill.findFirst({
+            where: { name: { equals: skillData.name, mode: 'insensitive' } },
+          });
+
+          if (!skill) {
+            skill = await prisma.skill.create({
+              data: {
+                name: skillData.name,
+                category: skillData.category || 'TECHNICAL',
+              },
+            });
+          }
+
+          // Link skill to expert
+          await prisma.expertSkill.create({
+            data: {
+              expertId: expert.id,
+              skillId: skill.id,
+              proficiency: skillData.proficiencyLevel || 'INTERMEDIATE',
+              yearsOfExp: null,
+            },
+          });
+        }
+      }
+    }
+
+    // Handle achievements updates
+    if (achievements && Array.isArray(achievements)) {
+      // Delete existing achievements
+      await prisma.achievement.deleteMany({
+        where: { expertId: expert.id },
+      });
+
+      // Create new achievements
+      if (achievements.length > 0) {
+        await prisma.achievement.createMany({
+          data: achievements.map(ach => ({
+            expertId: expert.id,
+            title: ach.title,
+            description: ach.description || null,
+            date: ach.date ? new Date(ach.date) : null,
+            url: ach.url || null,
+            images: ach.images || [],
+            organization: ach.organization || null,
+          })),
+        });
+      }
+    }
+
+    // Fetch complete updated profile
+    const updatedExpert = await prisma.expert.findUnique({
+      where: { userId },
       include: {
         user: {
           select: {
@@ -102,24 +287,66 @@ const updateExpertProfile = async (req, res, next) => {
             email: true,
           },
         },
+        educations: {
+          orderBy: { startYear: 'desc' },
+        },
+        workExperiences: {
+          orderBy: { startDate: 'desc' },
+        },
+        skills: {
+          include: {
+            skill: true,
+          },
+        },
+        achievements: {
+          orderBy: { date: 'desc' },
+        },
       },
     });
 
     // Calculate profile completeness
-    const completeness = calculateProfileCompleteness(expert);
+    const completeness = calculateProfileCompleteness(updatedExpert);
     await prisma.expert.update({
       where: { userId },
       data: { profileCompleteness: completeness },
     });
 
-    logger.info('Expert profile updated', { expertId: expert.id });
+    logger.info('Expert profile updated (full)', { expertId: expert.id });
+
+    // Transform the response to match frontend expectations
+    const transformedExpert = {
+      ...updatedExpert,
+      education: updatedExpert.educations || [],
+      experience: (updatedExpert.workExperiences || []).map(exp => ({
+        position: exp.title,
+        company: exp.company,
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        isCurrent: exp.isCurrent,
+        description: exp.description,
+        keyResponsibilities: exp.keyResponsibilities,
+        industry: exp.industry,
+        location: exp.location,
+        achievements: exp.achievements,
+      })),
+      skills: (updatedExpert.skills || []).map(s => ({
+        name: s.skill?.name || '',
+        category: s.skill?.category || 'TECHNICAL',
+        proficiencyLevel: s.proficiency,
+        yearsOfExp: s.yearsOfExp,
+      })),
+      // Keep original arrays for compatibility
+      educations: updatedExpert.educations,
+      workExperiences: updatedExpert.workExperiences,
+    };
 
     res.json({
       success: true,
       message: 'Expert profile updated successfully',
-      data: expert,
+      data: transformedExpert,
     });
   } catch (error) {
+    logger.error('Error updating expert profile:', error);
     next(error);
   }
 };
