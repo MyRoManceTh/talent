@@ -53,21 +53,24 @@ app.use(notFound);
 // Error handler
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, () => {
-  logger.info(`Server is running on port ${PORT}`);
-  logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🚀 Expert Connect API is running on http://localhost:${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  logger.info('SIGTERM signal received: closing HTTP server');
-  app.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+// Start server (only in non-serverless environment)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    logger.info(`Server is running on port ${PORT}`);
+    logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🚀 Expert Connect API is running on http://localhost:${PORT}`);
+    console.log(`📊 Health check: http://localhost:${PORT}/health`);
   });
-});
 
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    logger.info('SIGTERM signal received: closing HTTP server');
+    app.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
+  });
+}
+
+// Export for Vercel serverless
 module.exports = app;
